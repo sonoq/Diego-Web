@@ -1,0 +1,64 @@
+backend:
+  name: github
+  repo: sonoq/Diego-Web
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "paginas"
+    label: "Páginas"
+    delete: false
+    create: false
+    files:
+      - name: "inicio"
+        label: "Página de Inicio"
+        file: "index.html"
+        fields:
+          - { label: "Título SEO", name: "meta_title", widget: "string" }
+          - { label: "Descripción SEO", name: "meta_description", widget: "text" }
+          
+          - label: "Sección Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Subtítulo", name: "subtitle", widget: "string" }
+              - { label: "Título (HTML permitido)", name: "title_html", widget: "string" }
+              - { label: "Eslogan", name: "tagline", widget: "string" }
+              - { label: "Texto Botón", name: "cta_text", widget: "string" }
+              - { label: "Imagen Hero", name: "image", widget: "image" }
+              - { label: "Alt Imagen Hero", name: "image_alt", widget: "string" }
+
+          - label: "Sobre Mí"
+            name: "sobre_mi"
+            widget: "object"
+            fields:
+              - { label: "Título Sección", name: "title", widget: "string" }
+              - { label: "Imagen Retrato", name: "image", widget: "image" }
+              - { label: "Alt Imagen Retrato", name: "image_alt", widget: "string" }
+              - { label: "Párrafos", name: "paragraphs", widget: "list", field: { label: "Párrafo", name: "paragraph", widget: "text" } }
+
+          - label: "Galería"
+            name: "galeria"
+            widget: "object"
+            fields:
+              - { label: "Título Sección", name: "title", widget: "string" }
+              - { label: "Cita / Eslogan", name: "quote", widget: "string" }
+              - label: "Items de Galería"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Imagen", name: "image", widget: "image" }
+                  - { label: "Alt Text", name: "alt", widget: "string" }
+                  - { label: "Etiqueta (Obra)", name: "label", widget: "string" }
+                  - { label: "Año / Técnica", name: "year", widget: "string" }
+
+          - label: "Contacto"
+            name: "contacto"
+            widget: "object"
+            fields:
+              - { label: "Título Sección", name: "title", widget: "string" }
+              - { label: "Texto Intro", name: "intro", widget: "text" }
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "Ubicación Estudio", name: "estudio", widget: "string" }
