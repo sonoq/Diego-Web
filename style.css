@@ -372,6 +372,8 @@ a:hover {
     position: relative;
     display: flex;
     align-items: center;
+    /* Add padding to the sides to make room for the larger outer buttons */
+    padding: 0 60px;
 }
 
 .gallery-grid {
@@ -404,32 +406,31 @@ a:hover {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(30, 30, 48, 0.9);
+    background: transparent;
     color: var(--secondary);
-    border: 1px solid var(--secondary);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    font-size: 1.2rem;
+    border: none;
+    font-size: 3.5rem;
+    font-weight: 300;
     cursor: pointer;
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    padding: 10px;
 }
 
 .carousel-btn:hover {
-    background: var(--secondary);
-    color: var(--primary);
+    color: var(--accent);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .prev-btn {
-    left: -22px;
+    left: -10px;
 }
 
 .next-btn {
-    right: -22px;
+    right: -10px;
 }
 
 .gallery-image-wrapper {
@@ -747,8 +748,24 @@ a:hover {
         font-size: 2.8rem;
     }
 
+    .carousel-wrapper {
+        padding: 0 30px;
+    }
+
     .gallery-item {
         flex: 0 0 100%;
+    }
+
+    .carousel-btn {
+        font-size: 2rem;
+    }
+
+    .prev-btn {
+        left: -5px;
+    }
+
+    .next-btn {
+        right: -5px;
     }
 
     .gallery-overlay {

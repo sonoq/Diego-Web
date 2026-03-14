@@ -72,26 +72,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ---- Gallery Carousel ---- //
+    // ---- Circular Gallery Carousel ---- //
     const galleryCarousel = document.getElementById('gallery-carousel');
     const btnPrev = document.getElementById('carousel-prev');
     const btnNext = document.getElementById('carousel-next');
 
     if (galleryCarousel && btnPrev && btnNext) {
-        const getScrollAmount = () => {
-            const item = galleryCarousel.querySelector('.gallery-item');
-            if (!item) return 0;
-            const gap = parseInt(window.getComputedStyle(galleryCarousel).gap) || 0;
-            return item.offsetWidth + gap;
+
+        const scrollNext = () => {
+            const items = galleryCarousel.querySelectorAll('.gallery-item');
+            if (items.length === 0) return;
+
+            // Get width to scroll + gap
+            const scrollAmount = items[0].offsetWidth + (parseInt(window.getComputedStyle(galleryCarousel).gap) || 0);
+
+            // Smoothly scroll
+            galleryCarousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+
+            // After transition, take the first child and append it to the end to create infinite loops
+            setTimeout(() => {
+                galleryCarousel.appendChild(items[0]);
+                // Instantly adjust scroll position back so it feels seamless
+                galleryCarousel.scrollBy({ left: -scrollAmount, behavior: 'instant' });
+            }, 400); // 400ms matches smooth scroll duration roughly
         };
 
-        btnNext.addEventListener('click', () => {
-            galleryCarousel.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
-        });
+        const scrollPrev = () => {
+            const items = galleryCarousel.querySelectorAll('.gallery-item');
+            if (items.length === 0) return;
 
-        btnPrev.addEventListener('click', () => {
-            galleryCarousel.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
-        });
+            // Get width to scroll + gap
+            const scrollAmount = items[0].offsetWidth + (parseInt(window.getComputedStyle(galleryCarousel).gap) || 0);
+
+            // Take the last child and prepend it to the start
+            const lastItem = items[items.length - 1];
+            galleryCarousel.prepend(lastItem);
+
+            // Instantly offset scroll so the current view doesn't jump
+            galleryCarousel.scrollBy({ left: scrollAmount, behavior: 'instant' });
+
+            // Ensure reflow happens before animating back
+            requestAnimationFrame(() => {
+                galleryCarousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            });
+        };
+
+        btnNext.addEventListener('click', scrollNext);
+        btnPrev.addEventListener('click', scrollPrev);
     }
 
     // ---- Image Modal (Lightbox) ---- //
