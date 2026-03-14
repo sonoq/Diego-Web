@@ -368,15 +368,68 @@ a:hover {
     background: var(--background);
 }
 
+.carousel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
 .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
     gap: var(--gap);
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    padding-bottom: 20px;
+    /* Space for hover effect */
+}
+
+/* Chrome, Safari, Opera scrollbar hide */
+.gallery-grid::-webkit-scrollbar {
+    display: none;
 }
 
 .gallery-item {
+    flex: 0 0 calc((100% - (var(--gap) * 2)) / 3);
+    scroll-snap-align: start;
     overflow: hidden;
     border-radius: var(--radius);
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(30, 30, 48, 0.9);
+    color: var(--secondary);
+    border: 1px solid var(--secondary);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.carousel-btn:hover {
+    background: var(--secondary);
+    color: var(--primary);
+}
+
+.prev-btn {
+    left: -22px;
+}
+
+.next-btn {
+    right: -22px;
 }
 
 .gallery-image-wrapper {
@@ -659,8 +712,16 @@ a:hover {
         max-width: 400px;
     }
 
-    .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .gallery-item {
+        flex: 0 0 calc((100% - var(--gap)) / 2);
+    }
+
+    .prev-btn {
+        left: -10px;
+    }
+
+    .next-btn {
+        right: -10px;
     }
 
     .contacto-grid {
@@ -686,9 +747,8 @@ a:hover {
         font-size: 2.8rem;
     }
 
-    .gallery-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
+    .gallery-item {
+        flex: 0 0 100%;
     }
 
     .gallery-overlay {

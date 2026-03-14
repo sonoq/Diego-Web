@@ -72,6 +72,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ---- Gallery Carousel ---- //
+    const galleryCarousel = document.getElementById('gallery-carousel');
+    const btnPrev = document.getElementById('carousel-prev');
+    const btnNext = document.getElementById('carousel-next');
+
+    if (galleryCarousel && btnPrev && btnNext) {
+        const getScrollAmount = () => {
+            const item = galleryCarousel.querySelector('.gallery-item');
+            if (!item) return 0;
+            const gap = parseInt(window.getComputedStyle(galleryCarousel).gap) || 0;
+            return item.offsetWidth + gap;
+        };
+
+        btnNext.addEventListener('click', () => {
+            galleryCarousel.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+        });
+
+        btnPrev.addEventListener('click', () => {
+            galleryCarousel.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+        });
+    }
+
     // ---- Image Modal (Lightbox) ---- //
     const modal = document.getElementById('image-modal');
     const modalImg = document.getElementById('modal-img');
