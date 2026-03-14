@@ -1,11 +1,103 @@
 /* ============================================
    Diego Peribañez Villalba — Script
-   Scroll animations + mobile nav + navbar bg
+   Content loader + Scroll animations + mobile nav + navbar bg
    ============================================ */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 
+    // ============================================
+    // ---- Load content from datos.json ---- //
+    // ============================================
+    async function loadContent() {
+        try {
+            const response = await fetch('./datos.json');
+            if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+            const data = await response.json();
+
+            // -- Meta --
+            document.title = data.meta.title;
+            const metaDesc = document.querySelector('meta[data-content="meta-description"]');
+            if (metaDesc) metaDesc.setAttribute('content', data.meta.description);
+
+            // -- Hero --
+            const heroImage = document.querySelector('[data-content="hero-image"]');
+            if (heroImage) {
+                heroImage.src = data.hero.imageSrc;
+                heroImage.alt = data.hero.imageAlt;
+            }
+            setText('[data-content="hero-subtitle"]', data.hero.subtitle);
+            setHTML('[data-content="hero-title"]', data.hero.titleHTML);
+            setText('[data-content="hero-tagline"]', data.hero.tagline);
+            const heroCta = document.querySelector('[data-content="hero-cta"]');
+            if (heroCta) {
+                heroCta.textContent = data.hero.cta;
+                heroCta.href = data.hero.ctaHref;
+            }
+
+            // -- Sobre mí --
+            setText('[data-content="sobre-mi-title"]', data.sobreMi.title);
+            const sobreImage = document.querySelector('[data-content="sobre-mi-image"]');
+            if (sobreImage) {
+                sobreImage.src = data.sobreMi.imageSrc;
+                sobreImage.alt = data.sobreMi.imageAlt;
+            }
+            const parasContainer = document.querySelector('[data-content="sobre-mi-paragraphs"]');
+            if (parasContainer) {
+                parasContainer.innerHTML = data.sobreMi.paragraphs
+                    .map(p => `<p>${p}</p>`)
+                    .join('');
+            }
+
+            // -- Galería --
+            setText('[data-content="galeria-title"]', data.galeria.title);
+            setText('[data-content="galeria-quote"]', data.galeria.quote);
+            const galleryCarousel = document.getElementById('gallery-carousel');
+            if (galleryCarousel) {
+                galleryCarousel.innerHTML = data.galeria.items.map(item => `
+                    <div class="gallery-item fade-in">
+                        <div class="gallery-image-wrapper">
+                            <img src="${item.src}" alt="${item.alt}" loading="lazy">
+                            <div class="gallery-overlay">
+                                <span class="gallery-label">${item.label}</span>
+                                <span class="gallery-year">${item.year}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // -- Contacto --
+            setText('[data-content="contacto-title"]', data.contacto.title);
+            setText('[data-content="contacto-intro"]', data.contacto.intro);
+            const emailLink = document.querySelector('[data-content="contacto-email"]');
+            if (emailLink) {
+                emailLink.textContent = data.contacto.email;
+                emailLink.href = `mailto:${data.contacto.email}`;
+            }
+            setText('[data-content="contacto-estudio"]', data.contacto.estudio);
+
+        } catch (err) {
+            console.error('Error al cargar datos.json:', err);
+        }
+    }
+
+    // Helpers
+    function setText(selector, value) {
+        const el = document.querySelector(selector);
+        if (el) el.textContent = value;
+    }
+    function setHTML(selector, value) {
+        const el = document.querySelector(selector);
+        if (el) el.innerHTML = value;
+    }
+
+    // Load content first, then initialise everything else
+    await loadContent();
+
+
+    // ============================================
     // ---- Fade-in on scroll (IntersectionObserver) ---- //
+    // ============================================
     const fadeElements = document.querySelectorAll('.fade-in');
 
     const observer = new IntersectionObserver((entries) => {
@@ -26,7 +118,9 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeElements.forEach(el => observer.observe(el));
 
 
+    // ============================================
     // ---- Navbar background on scroll ---- //
+    // ============================================
     const nav = document.getElementById('main-nav');
 
     const handleScroll = () => {
@@ -41,7 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
     handleScroll(); // run on load
 
 
+    // ============================================
     // ---- Mobile nav toggle ---- //
+    // ============================================
     const toggle = document.getElementById('nav-toggle');
     const navLinks = document.querySelector('.nav-links');
 
@@ -59,7 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+    // ============================================
     // ---- Smooth scroll for anchor links ---- //
+    // ============================================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', (e) => {
             e.preventDefault();
@@ -77,7 +175,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+
+    // ============================================
     // ---- Circular Gallery Carousel ---- //
+    // ============================================
     const galleryCarousel = document.getElementById('gallery-carousel');
     const btnPrev = document.getElementById('carousel-prev');
     const btnNext = document.getElementById('carousel-next');
@@ -144,31 +245,34 @@ document.addEventListener('DOMContentLoaded', () => {
         btnPrev.addEventListener('click', scrollPrev);
     }
 
+
+    // ============================================
     // ---- Image Modal (Lightbox) ---- //
+    // ============================================
     const modal = document.getElementById('image-modal');
     const modalImg = document.getElementById('modal-img');
     const captionText = document.getElementById('modal-caption');
     const closeBtn = document.querySelector('.modal-close');
-    const galleryItems = document.querySelectorAll('.gallery-image-wrapper');
 
     if (modal && modalImg && captionText) {
-        galleryItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const img = item.querySelector('img');
-                if (img) {
-                    modal.style.display = "flex";
-                    modal.classList.add('show');
-                    modalImg.src = img.src;
-                    captionText.innerHTML = img.alt;
-                    document.body.style.overflow = 'hidden'; // Prevent background scroll
-                }
-            });
+        // Use event delegation so dynamically inserted gallery items are covered
+        document.getElementById('gallery-carousel').addEventListener('click', (e) => {
+            const wrapper = e.target.closest('.gallery-image-wrapper');
+            if (!wrapper) return;
+            const img = wrapper.querySelector('img');
+            if (img) {
+                modal.style.display = 'flex';
+                modal.classList.add('show');
+                modalImg.src = img.src;
+                captionText.innerHTML = img.alt;
+                document.body.style.overflow = 'hidden';
+            }
         });
 
         const closeModal = () => {
-            modal.style.display = "none";
+            modal.style.display = 'none';
             modal.classList.remove('show');
-            document.body.style.overflow = 'auto'; // Restore scroll
+            document.body.style.overflow = 'auto';
         };
 
         if (closeBtn) {
@@ -184,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Close on Escape key
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.style.display === "flex") {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
                 closeModal();
             }
         });

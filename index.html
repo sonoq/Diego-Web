@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
+    <meta name="description" data-content="meta-description"
         content="Página web oficial de Diego Peribañez Villalba, escultor y pintor figurativo en Valencia. Obras en talla de madera policromada y óleo. Ganador del Certamen Nacional de Valdepeñas.">
     <meta name="keywords"
         content="Diego Peribañez, Diego Peribáñez Villalba, Escultor, Pintor Figurativo, Teruel, Valencia, Talla en madera, Arte contemporáneo, Retrato, Koré">
@@ -29,7 +29,7 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://diegoperibanez.es/" />
 
-    <title>Diego Peribañez Villalba — Escultor y Pintor Figurativo</title>
+    <title data-content="meta-title">Diego Peribañez Villalba — Escultor y Pintor Figurativo</title>
 
     <!-- Fonts and CSS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -84,17 +84,18 @@
     <!-- Hero Section -->
     <header id="hero" class="hero">
         <div class="hero-bg">
-            <img src="images/portrait.png"
+            <img data-content="hero-image"
+                src="images/portrait.png"
                 alt="Diego Peribañez muestra a Sofía de Grecia su cuadro Calle las Barcas, seleccionado por el Premio Reina Sofía"
                 loading="eager">
             <div class="hero-overlay"></div>
         </div>
         <div class="hero-content fade-in">
-            <p class="hero-subtitle">Escultor · Pintor Figurativo</p>
-            <h1 class="hero-title">Diego<br>Peribañez<br>Villalba</h1>
+            <p class="hero-subtitle" data-content="hero-subtitle"></p>
+            <h1 class="hero-title" data-content="hero-title"></h1>
             <div class="hero-line"></div>
-            <p class="hero-tagline">Del plano al volumen, de la madera al alma</p>
-            <a href="#galeria" class="hero-cta">Ver Obra</a>
+            <p class="hero-tagline" data-content="hero-tagline"></p>
+            <a class="hero-cta" data-content="hero-cta"></a>
         </div>
     </header>
 
@@ -103,19 +104,15 @@
         <div class="container">
             <div class="sobre-mi-grid">
                 <div class="sobre-mi-image fade-in">
-                    <img src="images/portrait_new.jpg" alt="Retrato pictórico de Diego Peribáñez y su pareja">
+                    <img data-content="sobre-mi-image"
+                        src="images/portrait_new.jpg"
+                        alt="Retrato pictórico de Diego Peribáñez y su pareja">
                     <div class="image-accent"></div>
                 </div>
                 <div class="sobre-mi-text fade-in">
-                    <h2 class="section-title">Sobre mí</h2>
+                    <h2 class="section-title" data-content="sobre-mi-title"></h2>
                     <div class="title-divider"></div>
-                    <p>
-                        Soy Diego Peribáñez Villalba, escultor y pintor figurativo. Nacido en Teruel y actualmente
-                        afincado en Valencia, mi trayectoria hacia el arte profesional nació de una reinvención
-                        personal. Tras formarme en Derecho y desarrollar mi carrera en la promoción inmobiliaria, un
-                        punto de inflexión vital en 2008 me impulsó a dar un giro definitivo a mi carrera: rozando los
-                        cuarenta años, ingresé en la Facultad de Bellas Artes para dedicarme por completo a mi vocación.
-                    </p>
+                    <div data-content="sobre-mi-paragraphs"></div>
                 </div>
             </div>
         </div>
@@ -124,50 +121,13 @@
     <!-- Galería -->
     <section id="galeria" class="section galeria">
         <div class="container">
-            <h2 class="section-title fade-in">Galería</h2>
+            <h2 class="section-title fade-in" data-content="galeria-title"></h2>
             <div class="title-divider fade-in"></div>
-            <p class="section-intro fade-in">"El arte se parece mucho a la construcción, pero lo que construyes no es
-                una vivienda sino una emoción"</p>
+            <p class="section-intro fade-in" data-content="galeria-quote"></p>
             <div class="carousel-wrapper">
                 <button id="carousel-prev" class="carousel-btn prev-btn" aria-label="Anterior">&#10094;</button>
                 <div class="gallery-grid" id="gallery-carousel">
-                    <div class="gallery-item fade-in">
-                        <div class="gallery-image-wrapper">
-                            <img src="images/kore.png" alt="Koré — Escultura en madera de tilo policromada"
-                                loading="lazy">
-                            <div class="gallery-overlay">
-                                <span class="gallery-label">Koré</span>
-                                <span class="gallery-year">Madera de tilo policromada</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="gallery-item fade-in">
-                        <div class="gallery-image-wrapper">
-                            <img src="images/retrato.jpg" alt="Retrato — Óleo sobre lienzo" loading="lazy">
-                            <div class="gallery-overlay">
-                                <span class="gallery-label">Retrato</span>
-                                <span class="gallery-year">Óleo sobre lienzo</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="gallery-item fade-in">
-                        <div class="gallery-image-wrapper">
-                            <img src="images/busto.png" alt="Busto — Escultura en arcilla" loading="lazy">
-                            <div class="gallery-overlay">
-                                <span class="gallery-label">Busto en arcilla</span>
-                                <span class="gallery-year">Estudio volumétrico</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="gallery-item fade-in">
-                        <div class="gallery-image-wrapper">
-                            <img src="images/padre.jpg" alt="Padre — Óleo sobre lienzo" loading="lazy">
-                            <div class="gallery-overlay">
-                                <span class="gallery-label">Padre</span>
-                                <span class="gallery-year">Óleo sobre lienzo</span>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Gallery items are injected dynamically by script.js -->
                 </div>
                 <button id="carousel-next" class="carousel-btn next-btn" aria-label="Siguiente">&#10095;</button>
             </div>
@@ -177,20 +137,18 @@
     <!-- Contacto -->
     <section id="contacto" class="section contacto">
         <div class="container">
-            <h2 class="section-title fade-in">Contacto</h2>
+            <h2 class="section-title fade-in" data-content="contacto-title"></h2>
             <div class="title-divider fade-in"></div>
             <div class="contacto-content fade-in">
-                <p class="contacto-intro">
-                    ¿Interesado en mi obra o en colaborar? No dudes en escribirme.
-                </p>
+                <p class="contacto-intro" data-content="contacto-intro"></p>
                 <div class="contacto-grid">
                     <div class="contacto-item">
                         <span class="contacto-label">Email</span>
-                        <a href="mailto:diegoperibanez@gmail.com" class="contacto-link">diegoperibanez@gmail.com</a>
+                        <a class="contacto-link" data-content="contacto-email"></a>
                     </div>
                     <div class="contacto-item">
                         <span class="contacto-label">Estudio</span>
-                        <span class="contacto-value">Valencia, España</span>
+                        <span class="contacto-value" data-content="contacto-estudio"></span>
                     </div>
                 </div>
             </div>
