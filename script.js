@@ -83,10 +83,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnNext = document.getElementById('carousel-next');
 
     if (galleryCarousel && btnPrev && btnNext) {
+        let isScrolling = false;
+        const scrollWaitTime = 500; // time in ms to block new clicks while animating
 
         const scrollNext = () => {
+            if (isScrolling) return;
+            isScrolling = true;
+
             const items = galleryCarousel.querySelectorAll('.gallery-item');
-            if (items.length === 0) return;
+            if (items.length === 0) {
+                isScrolling = false;
+                return;
+            }
 
             // Get width to scroll + gap
             const scrollAmount = items[0].offsetWidth + (parseInt(window.getComputedStyle(galleryCarousel).gap) || 0);
@@ -99,12 +107,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 galleryCarousel.appendChild(items[0]);
                 // Instantly adjust scroll position back so it feels seamless
                 galleryCarousel.scrollBy({ left: -scrollAmount, behavior: 'instant' });
-            }, 400); // 400ms matches smooth scroll duration roughly
+                isScrolling = false;
+            }, scrollWaitTime);
         };
 
         const scrollPrev = () => {
+            if (isScrolling) return;
+            isScrolling = true;
+
             const items = galleryCarousel.querySelectorAll('.gallery-item');
-            if (items.length === 0) return;
+            if (items.length === 0) {
+                isScrolling = false;
+                return;
+            }
 
             // Get width to scroll + gap
             const scrollAmount = items[0].offsetWidth + (parseInt(window.getComputedStyle(galleryCarousel).gap) || 0);
@@ -119,6 +134,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Ensure reflow happens before animating back
             requestAnimationFrame(() => {
                 galleryCarousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                setTimeout(() => {
+                    isScrolling = false;
+                }, scrollWaitTime);
             });
         };
 
