@@ -6,13 +6,14 @@
 document.addEventListener('DOMContentLoaded', async () => {
 
     // ============================================
-    // ---- Load content from datos.json ---- //
+    // ---- Load content from datos.js (window.SITE_DATA) ---- //
+    // Works in file://, http:// and with a future headless CMS
+    // To connect a CMS: replace window.SITE_DATA with a fetch() call
     // ============================================
     async function loadContent() {
         try {
-            const response = await fetch('./datos.json');
-            if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-            const data = await response.json();
+            const data = window.SITE_DATA;
+            if (!data) throw new Error('window.SITE_DATA no está definido. Asegúrate de cargar datos.js antes de script.js.');
 
             // -- Meta --
             document.title = data.meta.title;
