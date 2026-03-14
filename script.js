@@ -72,4 +72,50 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ---- Image Modal (Lightbox) ---- //
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-img');
+    const captionText = document.getElementById('modal-caption');
+    const closeBtn = document.querySelector('.modal-close');
+    const galleryItems = document.querySelectorAll('.gallery-image-wrapper');
+
+    if (modal && modalImg && captionText) {
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                if (img) {
+                    modal.style.display = "flex";
+                    modal.classList.add('show');
+                    modalImg.src = img.src;
+                    captionText.innerHTML = img.alt;
+                    document.body.style.overflow = 'hidden'; // Prevent background scroll
+                }
+            });
+        });
+
+        const closeModal = () => {
+            modal.style.display = "none";
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto'; // Restore scroll
+        };
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeModal);
+        }
+
+        // Close on background click
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close on Escape key
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === "flex") {
+                closeModal();
+            }
+        });
+    }
+
 });
