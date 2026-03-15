@@ -13,14 +13,14 @@ const InicioPreview = createClass({
       // Hero
       h('header', { className: 'hero', style: { height: '500px', position: 'relative' } },
         h('div', { className: 'hero-bg' },
-          h('img', { src: this.props.getAsset(hero.get('image')), style: { width: '100%', height: '100%', objectFit: 'cover' } }),
+          hero && hero.get('image') ? h('img', { src: this.props.getAsset(hero.get('image')), style: { width: '100%', height: '100%', objectFit: 'cover' } }) : null,
           h('div', { className: 'hero-overlay' })
         ),
         h('div', { className: 'hero-content', style: { opacity: 1, transform: 'none', textAlign: 'center', color: 'white' } },
-          h('p', { className: 'hero-subtitle' }, hero.get('subtitle')),
-          h('h1', { className: 'hero-title', dangerouslySetInnerHTML: { __html: hero.get('title_html') } }),
-          h('p', { className: 'hero-tagline' }, hero.get('tagline')),
-          h('a', { className: 'hero-cta' }, hero.get('cta_text'))
+          h('p', { className: 'hero-subtitle' }, hero ? hero.get('subtitle') : ''),
+          h('h1', { className: 'hero-title', dangerouslySetInnerHTML: { __html: hero ? hero.get('title_html') : '' } }),
+          h('p', { className: 'hero-tagline' }, hero ? hero.get('tagline') : ''),
+          h('a', { className: 'hero-cta' }, hero ? hero.get('cta_text') : '')
         )
       ),
       // Sobre Mí
@@ -28,11 +28,11 @@ const InicioPreview = createClass({
         h('div', { className: 'container' },
           h('div', { className: 'sobre-mi-grid' },
             h('div', { className: 'sobre-mi-image' },
-              h('img', { src: this.props.getAsset(sobreMi.get('image')) })
+              sobreMi && sobreMi.get('image') ? h('img', { src: this.props.getAsset(sobreMi.get('image')) }) : null
             ),
             h('div', { className: 'sobre-mi-text' },
-              h('h2', { className: 'section-title' }, sobreMi.get('title')),
-              this.props.widgetsFor('sobre_mi').getIn(['widgets', 'paragraphs']).map((p, index) => h('p', { key: index }, p))
+              h('h2', { className: 'section-title' }, sobreMi ? sobreMi.get('title') : ''),
+              sobreMi && sobreMi.get('paragraphs') ? sobreMi.get('paragraphs').map((p, index) => h('p', { key: index }, p)) : null
             )
           )
         )
@@ -40,12 +40,12 @@ const InicioPreview = createClass({
       // Contacto
       h('section', { className: 'section contacto' },
         h('div', { className: 'container' },
-          h('h2', { className: 'section-title' }, contacto.get('title')),
-          h('p', { className: 'contacto-intro' }, contacto.get('intro')),
+          h('h2', { className: 'section-title' }, contacto ? contacto.get('title') : ''),
+          h('p', { className: 'contacto-intro' }, contacto ? contacto.get('intro') : ''),
           h('div', { className: 'contacto-grid' },
             h('div', { className: 'contacto-item' },
               h('span', { className: 'contacto-label' }, 'Email'),
-              h('span', { className: 'contacto-link' }, contacto.get('email'))
+              h('span', { className: 'contacto-link' }, contacto ? contacto.get('email') : '')
             )
           )
         )
