@@ -69,3 +69,15 @@ collections:
               - { label: "Texto Intro", name: "intro", widget: "text" }
               - { label: "Email", name: "email", widget: "string" }
               - { label: "Ubicación Estudio", name: "estudio", widget: "string" }
+
+  - name: "obras"
+    label: "Obras (Galería)"
+    label_singular: "Obra"
+    folder: "_obras"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Título / Etiqueta", name: "label", widget: "string" }
+      - { label: "Año / Técnica", name: "year", widget: "string" }
+      - { label: "Imagen", name: "image", widget: "image" }
+      - { label: "Texto Alternativo (Accesibilidad)", name: "alt", widget: "string" }

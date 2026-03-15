@@ -23,24 +23,6 @@ galeria_textos:
   title: "Galería"
   quote: "\"El arte se parece mucho a la construcción, pero lo que construyes no es una vivienda sino una emoción\""
 
-galeria_items: # Mantener temporalmente hasta migrar a colección independiente
-    - image: "images/kore.png"
-      alt: "Koré — Escultura en madera de tilo policromada"
-      label: "Koré"
-      year: "Madera de tilo policromada"
-    - image: "images/retrato.jpg"
-      alt: "Retrato — Óleo sobre lienzo"
-      label: "Retrato"
-      year: "Óleo sobre lienzo"
-    - image: "images/busto.png"
-      alt: "Busto — Escultura en arcilla"
-      label: "Busto en arcilla"
-      year: "Estudio volumétrico"
-    - image: "images/padre.jpg"
-      alt: "Padre — Óleo sobre lienzo"
-      label: "Padre"
-      year: "Óleo sobre lienzo"
-
 contacto:
   title: Contacto
   intro: ¿Interesad@ en mi obra o en colaborar? No dudes en escribirme.
@@ -171,7 +153,7 @@ contacto:
             <div class="carousel-wrapper">
                 <button id="carousel-prev" class="carousel-btn prev-btn" aria-label="Anterior">&#10094;</button>
                 <div class="gallery-grid" id="gallery-carousel">
-                    {% for item in page.galeria_items %}
+                    {% for item in site.obras %}
                     <div class="gallery-item fade-in">
                         <div class="gallery-image-wrapper">
                             <img src="{{ item.image }}" alt="{{ item.alt }}" loading="lazy">
