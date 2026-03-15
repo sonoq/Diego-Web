@@ -226,9 +226,6 @@ contacto:
     <script src="script.js"></script>
     <script>
       if (window.netlifyIdentity) {
-        // Explicitly set the API URL to solve detection issues
-        window.netlifyIdentity.setAPI("https://diegoperibanez.es/.netlify/identity");
-
         window.netlifyIdentity.on("init", user => {
           if (!user) {
             window.netlifyIdentity.on("login", () => {
