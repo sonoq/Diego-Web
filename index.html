@@ -1,49 +1,46 @@
 ---
-meta_title: Diego Peribañez Villalba — Escultor y Pintor Figurativo
-meta_description: Página web oficial de Diego Peribañez Villalba, escultor y
-  pintor figurativo en Valencia. Obras en talla de madera policromada y óleo.
-  Ganador del Certamen Nacional de Valdepeñas.
+meta_title: "Diego Peribañez Villalba — Escultor y Pintor Figurativo"
+meta_description: "Página web oficial de Diego Peribañez Villalba, escultor y pintor figurativo en Valencia. Obras en talla de madera policromada y óleo. Ganador del Certamen Nacional de Valdepeñas."
+
+alts:
+  hero_image: "Diego Peribañez muestra a Sofía de Grecia su cuadro Calle las Barcas, seleccionado por el Premio Reina Sofía"
+  sobre_mi_image: "Retrato pictórico de Diego Peribáñez y su pareja"
+
 hero:
-  subtitle: Escultor · Pintor Figurativo
-  title_html: Diego<br>Peribañez<br>Villalba
-  tagline: Del plano al volumen, de la madera al alma
-  cta_text: Ver Obra
-  image: images/portrait.png
-  image_alt: Diego Peribañez muestra a Sofía de Grecia su cuadro Calle las Barcas,
-    seleccionado por el Premio Reina Sofía
+  subtitle: "Escultor · Pintor Figurativo"
+  title_html: "Diego<br>Peribañez<br>Villalba"
+  tagline: "Del plano al volumen, de la madera al alma"
+  cta_text: "Ver Obra"
+  image: "images/portrait.png"
+
 sobre_mi:
-  title: Sobre mí
-  image: images/portrait_new.jpg
-  image_alt: Retrato pictórico de Diego Peribáñez y su pareja
+  title: "Sobre mí"
+  image: "images/portrait_new.jpg"
   paragraphs:
-    - "Soy Diego Peribáñez Villalba, escultor y pintor figurativo. Nacido en
-      Teruel y actualmente afincado en Valencia, mi trayectoria hacia el arte
-      profesional nació de una reinvención personal. Tras formarme en Derecho y
-      desarrollar mi carrera en la promoción inmobiliaria, un punto de inflexión
-      vital en 2008 me impulsó a dar un giro definitivo a mi carrera: rozando
-      los cuarenta años, ingresé en la Facultad de Bellas Artes para dedicarame
-      por completo a mi vocación."
-galeria:
-  title: Galería
-  quote: '"El arte se parece mucho a la construcción, pero lo que construyes no es
-    una vivienda sino una emoción"'
-  items:
-    - image: images/kore.png
-      alt: Koré — Escultura en madera de tilo policromada
-      label: Koré
-      year: Madera de tilo policromada
-    - image: images/retrato.jpg
-      alt: Retrato — Óleo sobre lienzo
-      label: Retrato
-      year: Óleo sobre lienzo
-    - image: images/busto.png
-      alt: Busto — Escultura en arcilla
-      label: Busto en arcilla
-      year: Estudio volumétrico
-    - image: images/padre.jpg
-      alt: Padre — Óleo sobre lienzo
-      label: Padre
-      year: Óleo sobre lienzo
+    - "Soy Diego Peribáñez Villalba, escultor y pintor figurativo. Nacido en Teruel y actualmente afincado en Valencia, mi trayectoria hacia el arte profesional nació de una reinvención personal. Tras formarme en Derecho y desarrollar mi carrera en la promoción inmobiliaria, un punto de inflexión vital en 2008 me impulsó a dar un giro definitivo a mi carrera: rozando los cuarenta años, ingresé en la Facultad de Bellas Artes para dedicarame por completo a mi vocación."
+
+galeria_textos:
+  title: "Galería"
+  quote: "\"El arte se parece mucho a la construcción, pero lo que construyes no es una vivienda sino una emoción\""
+
+galeria_items: # Mantener temporalmente hasta migrar a colección independiente
+    - image: "images/kore.png"
+      alt: "Koré — Escultura en madera de tilo policromada"
+      label: "Koré"
+      year: "Madera de tilo policromada"
+    - image: "images/retrato.jpg"
+      alt: "Retrato — Óleo sobre lienzo"
+      label: "Retrato"
+      year: "Óleo sobre lienzo"
+    - image: "images/busto.png"
+      alt: "Busto — Escultura en arcilla"
+      label: "Busto en arcilla"
+      year: "Estudio volumétrico"
+    - image: "images/padre.jpg"
+      alt: "Padre — Óleo sobre lienzo"
+      label: "Padre"
+      year: "Óleo sobre lienzo"
+
 contacto:
   title: Contacto
   intro: ¿Interesad@ en mi obra o en colaborar? No dudes en escribirme.
@@ -134,7 +131,7 @@ contacto:
     <!-- Hero Section -->
     <header id="hero" class="hero">
         <div class="hero-bg">
-            <img src="{{ page.hero.image }}" alt="{{ page.hero.image_alt }}" loading="eager">
+            <img src="{{ page.hero.image }}" alt="{{ page.alts.hero_image }}" loading="eager">
             <div class="hero-overlay"></div>
         </div>
         <div class="hero-content fade-in">
@@ -151,7 +148,7 @@ contacto:
         <div class="container">
             <div class="sobre-mi-grid">
                 <div class="sobre-mi-image fade-in">
-                    <img src="{{ page.sobre_mi.image }}" alt="{{ page.sobre_mi.image_alt }}">
+                    <img src="{{ page.sobre_mi.image }}" alt="{{ page.alts.sobre_mi_image }}">
                     <div class="image-accent"></div>
                 </div>
                 <div class="sobre-mi-text fade-in">
@@ -168,13 +165,13 @@ contacto:
     <!-- Galería -->
     <section id="galeria" class="section galeria">
         <div class="container">
-            <h2 class="section-title fade-in">{{ page.galeria.title }}</h2>
+            <h2 class="section-title fade-in">{{ page.galeria_textos.title }}</h2>
             <div class="title-divider fade-in"></div>
-            <p class="section-intro fade-in">{{ page.galeria.quote }}</p>
+            <p class="section-intro fade-in">{{ page.galeria_textos.quote }}</p>
             <div class="carousel-wrapper">
                 <button id="carousel-prev" class="carousel-btn prev-btn" aria-label="Anterior">&#10094;</button>
                 <div class="gallery-grid" id="gallery-carousel">
-                    {% for item in page.galeria.items %}
+                    {% for item in page.galeria_items %}
                     <div class="gallery-item fade-in">
                         <div class="gallery-image-wrapper">
                             <img src="{{ item.image }}" alt="{{ item.alt }}" loading="lazy">

@@ -2,12 +2,33 @@ backend:
   name: git-gateway
   branch: main
 
+locale: es # Interfaz en español
+
 media_folder: "images"
 public_folder: "/images"
 
 collections:
+  - name: "config"
+    label: "Configuración Genérica"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "seo"
+        label: "SEO y Metadatos"
+        file: "index.html" # Por ahora guardamos en index.html, pero en campos específicos
+        fields:
+          - { label: "Título de la Web (Browser)", name: "meta_title", widget: "string" }
+          - { label: "Descripción SEO", name: "meta_description", widget: "text" }
+          - label: "Textos de Accesibilidad (ALT)"
+            name: "alts"
+            widget: "object"
+            fields:
+              - { label: "Alt Imagen Hero", name: "hero_image", widget: "string" }
+              - { label: "Alt Imagen Retrato", name: "sobre_mi_image", widget: "string" }
+
   - name: "paginas"
-    label: "Páginas"
+    label: "Contenido de Páginas"
     delete: false
     create: false
     files:
@@ -15,19 +36,15 @@ collections:
         label: "Página de Inicio"
         file: "index.html"
         fields:
-          - { label: "Título SEO", name: "meta_title", widget: "string" }
-          - { label: "Descripción SEO", name: "meta_description", widget: "text" }
-          
           - label: "Sección Hero"
             name: "hero"
             widget: "object"
             fields:
               - { label: "Subtítulo", name: "subtitle", widget: "string" }
-              - { label: "Título (HTML permitido)", name: "title_html", widget: "string" }
+              - { label: "Título (Diego...)", name: "title_html", widget: "string" }
               - { label: "Eslogan", name: "tagline", widget: "string" }
               - { label: "Texto Botón", name: "cta_text", widget: "string" }
               - { label: "Imagen Hero", name: "image", widget: "image" }
-              - { label: "Alt Imagen Hero", name: "image_alt", widget: "string" }
 
           - label: "Sobre Mí"
             name: "sobre_mi"
@@ -35,23 +52,14 @@ collections:
             fields:
               - { label: "Título Sección", name: "title", widget: "string" }
               - { label: "Imagen Retrato", name: "image", widget: "image" }
-              - { label: "Alt Imagen Retrato", name: "image_alt", widget: "string" }
               - { label: "Párrafos", name: "paragraphs", widget: "list", field: { label: "Párrafo", name: "paragraph", widget: "text" } }
 
-          - label: "Galería"
-            name: "galeria"
+          - label: "Galería (Textos)"
+            name: "galeria_textos"
             widget: "object"
             fields:
-              - { label: "Título Sección", name: "title", widget: "string" }
-              - { label: "Cita / Eslogan", name: "quote", widget: "string" }
-              - label: "Items de Galería"
-                name: "items"
-                widget: "list"
-                fields:
-                  - { label: "Imagen", name: "image", widget: "image" }
-                  - { label: "Alt Text", name: "alt", widget: "string" }
-                  - { label: "Etiqueta (Obra)", name: "label", widget: "string" }
-                  - { label: "Año / Técnica", name: "year", widget: "string" }
+              - { label: "Título Sección", name: "title", widget: "string", default: "Galería" }
+              - { label: "Cita / Frase", name: "quote", widget: "string" }
 
           - label: "Contacto"
             name: "contacto"
