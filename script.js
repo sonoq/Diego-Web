@@ -228,12 +228,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (activeEntry) {
                 const textCol = document.getElementById('cv-text-col');
                 const colHeight = textCol.clientHeight;
-
-                // Calculate position to center the entry ANCHOR (title line)
-                // We use 38px as the fixed anchor point (matches CSS dot position)
-                const anchorPoint = activeEntry.offsetTop + 38;
+                
+                // Calculate position to center based on the middle of the ENTRY height
+                // This matches the new CSS top: 50% logic
+                const anchorPoint = activeEntry.offsetTop + (activeEntry.offsetHeight / 2);
                 const translateY = (colHeight / 2) - anchorPoint;
-
+                
                 cvMenu.style.transform = `translateY(${translateY}px)`;
             }
         };

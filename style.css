@@ -730,49 +730,18 @@ a:hover {
     z-index: 1;
 }
 
-/* Cada entrada del Menú */
+/* 1. El contenedor principal tiene altura fija (¡Cero empujes en la página!) */
 .cv-entry {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    /* Keeps the top strictly aligned */
-    /* 60px of bottom padding permanently reserves space for details so nothing gets pushed */
-    padding: 25px 0 60px 0;
-    padding-left: 60px;
-    /* Space for line+dot */
+    height: 120px; /* Adjust this for gap between entries */
     cursor: pointer;
 }
 
-/* Contenedor de texto (Sin escala para evitar movimiento visual) */
-.cv-entry-content {
-    position: relative;
-    opacity: 0.35;
-    transform: scale(0.85);
-    /* Unselected items are 15% smaller */
-    transform-origin: left center;
-    /* Locks the left edge so it grows outward, not shifting around */
-    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.cv-entry:hover .cv-entry-content {
-    opacity: 0.6;
-}
-
-.cv-entry.active .cv-entry-content {
-    opacity: 1;
-    transform: scale(1);
-    /* Selected item grows to full size */
-}
-
-
-/* Alineación milimétrica del punto */
+/* 2. Centra el punto matemáticamente en el medio de la entrada */
 .cv-dot {
     position: absolute;
     left: 20px;
-    /* Exact same as .timeline-line left */
-    top: 38px;
-    /* Fixed offset to align with title text */
+    top: 50%; /* Se ancla exactamente al centro vertical */
     width: 14px;
     height: 14px;
     border-radius: 50%;
@@ -790,50 +759,44 @@ a:hover {
     transform: translate(-50%, -50%) scale(1.3);
 }
 
-/* Contenido: Título estático */
-.cv-title-group {
-    display: flex;
-    align-items: baseline;
-    gap: 15px;
-    margin-bottom: 5px;
-}
-
-.cv-work-title {
-    font-family: var(--font-display);
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    line-height: 1.1;
-    text-transform: uppercase;
-}
-
-.cv-year-small {
-    font-family: var(--font-display);
-    color: var(--secondary);
-    font-size: 1.1rem;
-    opacity: 0.8;
-}
-
-/* Detalles (Flotantes para no empujar el layout de la página) */
-.cv-details {
+/* 3. El contenedor de texto flota y se auto-centra dinámicamente */
+.cv-entry-content {
     position: absolute;
-    top: 100%;
-    /* Placed exactly beneath the title */
-    left: 0;
-    width: 100%;
+    top: 50%;
+    left: 60px; /* Space for the dot */
+    width: calc(100% - 60px);
+    opacity: 0.35;
+    
+    /* translateY(-50%) locks the center of the text with the dot. */
+    transform: translateY(-50%) scale(0.85); 
+    transform-origin: left center; 
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.cv-entry:hover .cv-entry-content {
+    opacity: 0.6;
+}
+
+.cv-entry.active .cv-entry-content {
+    opacity: 1;
+    /* Al crecer, expande hacia arriba y abajo por igual, manteniendo el centro */
+    transform: translateY(-50%) scale(1);
+}
+
+/* 4. Los detalles (vuelven a tener max-height porque ahora flotan con su padre) */
+.cv-details {
+    max-height: 0;
     opacity: 0;
-    visibility: hidden;
-    transform: translateY(-5px);
-    /* Slight, elegant drop-in effect */
-    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease;
-    margin-top: 5px;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease, margin 0.5s ease;
 }
 
 .cv-entry.active .cv-details {
+    max-height: 150px; 
     opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    /* No max-height changes here, guaranteeing zero document reflow! */
+    margin-top: 5px;
 }
 
 .cv-contest {
@@ -901,8 +864,8 @@ a:hover {
     }
 
     .cv-entry {
-        padding: 15px 0 50px 0;
-        /* Reserves 50px of space for mobile details */
+        height: 100px; /* Slightly tighter spacing for mobile */
+        padding: 0; 
     }
 }
 
