@@ -7,26 +7,29 @@ const artworks = [
     {
         id: "kore",
         title: "Koré",
+        year: 2024,
         category: "Escultura",
         medium: "Madera de tilo policromada",
         image: "images/kore.png",
         description: "Escultura en madera de tilo policromada.",
         showInGallery: true,
-        contests: [{ name: "Premio Reina Sofía", year: 2025, url: "https://fundacionreinasofia.es/" }]
+        contests: [{ name: "Nominado — Reina Sofía 2024", url: "https://fundacionreinasofia.es/" }]
     },
     {
         id: "retrato",
         title: "Retrato",
+        year: 2023,
         category: "Pintura",
         medium: "Óleo sobre lienzo",
         image: "images/retrato.jpg",
         description: "Óleo sobre lienzo.",
         showInGallery: true,
-        contests: [{ name: "Premio Reina Sofía", year: 2024, url: "https://fundacionreinasofia.es/" }]
+        contests: [{ name: "Premiado — Reina Sofía 2023", url: "https://fundacionreinasofia.es/" }]
     },
     {
         id: "busto",
         title: "Busto en arcilla",
+        year: 2024,
         category: "Escultura",
         medium: "Estudio volumétrico",
         image: "images/busto.png",
@@ -37,22 +40,24 @@ const artworks = [
     {
         id: "padre",
         title: "Padre",
+        year: 2024,
         category: "Pintura",
         medium: "Óleo sobre lienzo",
         image: "images/padre.jpg",
         description: "Óleo sobre lienzo.",
         showInGallery: true,
-        contests: [{ name: "Concurso II", year: 2024 }]
+        contests: [{ name: "Concurso II" }]
     },
     {
         id: "demo4",
         title: "Busto",
+        year: 2023,
         category: "Escultura",
         medium: "Arcilla volumétrica",
         image: "images/busto.png",
         description: "Busto en arcilla.",
         showInGallery: false,
-        contests: [{ name: "Certamen Nacional", year: 2023 }]
+        contests: [{ name: "Certamen Nacional" }]
     }
 ];
 
@@ -140,10 +145,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const entries = artworks
             .filter(work => work.contests && work.contests.length > 0)
             .flatMap(work => work.contests.map(c => ({ ...c, work })))
-            .sort((a, b) => b.year - a.year); // Descending by year
+            .sort((a, b) => b.work.year - a.work.year); // Descending by year
 
         const timelineHTML = entries.map(entry => {
-            const contestInfo = `${entry.name} - ${entry.year}`;
+            const contestInfo = `${entry.name} - ${entry.work.year}`;
             const contestDisplay = entry.url
                 ? `<a href="${entry.url}" target="_blank" rel="noopener" class="timeline-link">${contestInfo}</a>`
                 : contestInfo;
@@ -168,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const entries = artworks
             .filter(work => work.contests && work.contests.length > 0)
             .flatMap(work => work.contests.map(c => ({ ...c, work })))
-            .sort((a, b) => b.year - a.year);
+            .sort((a, b) => b.work.year - a.work.year);
 
         let currentIndex = -1;
         let lastMouseX = 0;
@@ -209,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="cv-entry-content">
                     <div class="cv-title-group">
                         <h2 class="cv-work-title">${entry.work.title}</h2>
-                        <span class="cv-year-small">(${entry.year})</span>
+                        <span class="cv-year-small">(${entry.work.year})</span>
                     </div>
                     <div class="cv-details">
                         <div class="cv-contest">${contestLink}</div>
