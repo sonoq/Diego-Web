@@ -761,7 +761,7 @@ a:hover {
 .cv-dot {
     position: absolute;
     left: 20px; /* Exact same as .timeline-line left */
-    top: 50%;
+    top: 38px; /* Fixed offset to align with title text */
     width: 14px;
     height: 14px;
     border-radius: 50%;

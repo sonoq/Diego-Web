@@ -171,13 +171,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const activeEntry = document.getElementById(`entry-${index}`);
             if (activeEntry) {
                 const textCol = document.getElementById('cv-text-col');
-                const titleGroup = activeEntry.querySelector('.cv-title-group');
                 const colHeight = textCol.clientHeight;
                 
-                // Calculate position to center the TITLE specifically
-                // titleGroup.offsetTop is relative to entry. padding-top is 25px.
-                const titleCenter = activeEntry.offsetTop + titleGroup.offsetTop + (titleGroup.offsetHeight / 2);
-                const translateY = (colHeight / 2) - titleCenter;
+                // Calculate position to center the entry ANCHOR (title line)
+                // We use 38px as the fixed anchor point (matches CSS dot position)
+                const anchorPoint = activeEntry.offsetTop + 38;
+                const translateY = (colHeight / 2) - anchorPoint;
                 
                 cvMenu.style.transform = `translateY(${translateY}px)`;
             }
