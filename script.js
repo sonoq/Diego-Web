@@ -28,9 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ---- Navbar background on scroll ---- //
     const nav = document.getElementById('main-nav');
+    const hero = document.getElementById('hero');
 
     const handleScroll = () => {
-        if (window.scrollY > 60) {
+        const heroHeight = hero ? hero.offsetHeight : 60;
+        // Add scrolled class after passing hero section (minus a small offset)
+        if (window.scrollY > (heroHeight - 80)) {
             nav.classList.add('scrolled');
         } else {
             nav.classList.remove('scrolled');
