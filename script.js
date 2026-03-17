@@ -57,6 +57,62 @@ const artworks = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
+    // ---- Global Modal Logic ---- //
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-img');
+    const captionText = document.getElementById('modal-caption');
+    const closeBtn = document.querySelector('.modal-close');
+
+    const openModal = (work) => {
+        if (!work || !modal || !modalImg) return;
+        modal.style.display = "flex";
+        modal.classList.add('show');
+        modalImg.src = work.image;
+        captionText.innerHTML = `${work.title} — ${work.medium}`;
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
+    };
+
+    const closeModal = () => {
+        if (!modal) return;
+        modal.style.display = "none";
+        modal.classList.remove('show');
+        document.body.style.overflow = 'auto'; // Restore scroll
+    };
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (modal) {
+        window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
+    }
+
+    // Modal click delegation for dynamic elements
+    document.addEventListener('click', (e) => {
+        // Gallery items
+        const galleryItem = e.target.closest('.gallery-item');
+        if (galleryItem) {
+            const id = galleryItem.getAttribute('data-id');
+            const work = artworks.find(w => w.id === id);
+            openModal(work);
+            return;
+        }
+        // CV Timeline items
+        const timelineWork = e.target.closest('.clickable-work');
+        if (timelineWork) {
+            const id = timelineWork.getAttribute('data-id');
+            const work = artworks.find(w => w.id === id);
+            openModal(work);
+            return;
+        }
+        // CV Scrollytelling images
+        const cvImg = e.target.closest('.cv-image-wrapper');
+        if (cvImg) {
+            // Find index from id (img-X)
+            const index = cvImg.id.split('-')[1];
+            // We need access to the entries array here... 
+            // Better to use data-id like the others or handle it in the listener below.
+        }
+    });
+
 
     // ---- Render Gallery ---- //
     const galleryCarousel = document.getElementById('gallery-carousel');
@@ -127,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
             imgDiv.id = `img-${index}`;
             imgDiv.innerHTML = `<img src="${entry.work.image}" alt="${entry.work.title}" loading="${index === 0 ? 'eager' : 'lazy'}">`;
             imgDiv.addEventListener('click', () => {
-                if (typeof openModal === 'function') openModal(entry.work);
+                openModal(entry.work);
             });
             cvImageCol.appendChild(imgDiv);
 
@@ -150,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             textDiv.addEventListener('click', () => {
                 const targetScroll = cvWrapper.offsetTop + (index * window.innerHeight);
-                window.scrollTo({ top: targetScroll, behavior: 'auto' });
+                window.scrollTo({ top: targetScroll, behavior: 'instant' });
             });
             cvMenu.appendChild(textDiv);
         });
@@ -172,12 +228,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (activeEntry) {
                 const textCol = document.getElementById('cv-text-col');
                 const colHeight = textCol.clientHeight;
-                
+
                 // Calculate position to center the entry ANCHOR (title line)
                 // We use 38px as the fixed anchor point (matches CSS dot position)
                 const anchorPoint = activeEntry.offsetTop + 38;
                 const translateY = (colHeight / 2) - anchorPoint;
-                
+
                 cvMenu.style.transform = `translateY(${translateY}px)`;
             }
         };
@@ -377,64 +433,6 @@ document.addEventListener('DOMContentLoaded', () => {
         btnPrev.addEventListener('click', scrollPrev);
     }
 
-    // ---- Image Modal (Lightbox) ---- //
-    const modal = document.getElementById('image-modal');
-    const modalImg = document.getElementById('modal-img');
-    const captionText = document.getElementById('modal-caption');
-    const closeBtn = document.querySelector('.modal-close');
-
-    if (modal && modalImg && captionText) {
-
-        const openModal = (work) => {
-            if (!work) return;
-            modal.style.display = "flex";
-            modal.classList.add('show');
-            modalImg.src = work.image;
-            captionText.innerHTML = `${work.title} — ${work.medium}`;
-            document.body.style.overflow = 'hidden'; // Prevent background scroll
-        };
-
-        // Delegate click events for gallery items (since they are dynamic)
-        document.addEventListener('click', (e) => {
-            const item = e.target.closest('.gallery-item');
-            if (item) {
-                const id = item.getAttribute('data-id');
-                const work = artworks.find(w => w.id === id);
-                openModal(work);
-            }
-
-            // Handle timeline clicks
-            const timelineWork = e.target.closest('.clickable-work');
-            if (timelineWork) {
-                const id = timelineWork.getAttribute('data-id');
-                const work = artworks.find(w => w.id === id);
-                openModal(work);
-            }
-        });
-
-        const closeModal = () => {
-            modal.style.display = "none";
-            modal.classList.remove('show');
-            document.body.style.overflow = 'auto'; // Restore scroll
-        };
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closeModal);
-        }
-
-        // Close on background click
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-
-        // Close on Escape key
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.style.display === "flex") {
-                closeModal();
-            }
-        });
-    }
+    // (Modal logic moved to top of DOMContentLoaded)
 
 });

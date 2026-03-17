@@ -719,7 +719,8 @@ a:hover {
 /* Línea continua con anclaje perfecto */
 .timeline-line {
     position: absolute;
-    left: 20px; /* Exact same as .cv-dot left */
+    left: 20px;
+    /* Exact same as .cv-dot left */
     top: -200vh;
     bottom: -200vh;
     width: 2px;
@@ -734,18 +735,24 @@ a:hover {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 25px 0;
-    padding-left: 60px; /* Space for line+dot */
+    justify-content: flex-start;
+    /* Keeps the top strictly aligned */
+    /* 60px of bottom padding permanently reserves space for details so nothing gets pushed */
+    padding: 25px 0 60px 0;
+    padding-left: 60px;
+    /* Space for line+dot */
     cursor: pointer;
 }
 
-/* Contenedor de texto que SÍ se escala */
+/* Contenedor de texto (Sin escala para evitar movimiento visual) */
 .cv-entry-content {
+    position: relative;
     opacity: 0.35;
     transform: scale(0.85);
+    /* Unselected items are 15% smaller */
     transform-origin: left center;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Locks the left edge so it grows outward, not shifting around */
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cv-entry:hover .cv-entry-content {
@@ -754,14 +761,18 @@ a:hover {
 
 .cv-entry.active .cv-entry-content {
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1);
+    /* Selected item grows to full size */
 }
+
 
 /* Alineación milimétrica del punto */
 .cv-dot {
     position: absolute;
-    left: 20px; /* Exact same as .timeline-line left */
-    top: 38px; /* Fixed offset to align with title text */
+    left: 20px;
+    /* Exact same as .timeline-line left */
+    top: 38px;
+    /* Fixed offset to align with title text */
     width: 14px;
     height: 14px;
     border-radius: 50%;
@@ -803,18 +814,26 @@ a:hover {
     opacity: 0.8;
 }
 
-/* Detalles (Colapsables) */
+/* Detalles (Flotantes para no empujar el layout de la página) */
 .cv-details {
-    max-height: 0;
+    position: absolute;
+    top: 100%;
+    /* Placed exactly beneath the title */
+    left: 0;
+    width: 100%;
     opacity: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease, opacity 0.5s ease, margin 0.5s ease;
+    visibility: hidden;
+    transform: translateY(-5px);
+    /* Slight, elegant drop-in effect */
+    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease;
+    margin-top: 5px;
 }
 
 .cv-entry.active .cv-details {
-    max-height: 150px;
     opacity: 1;
-    margin-top: 10px;
+    visibility: visible;
+    transform: translateY(0);
+    /* No max-height changes here, guaranteeing zero document reflow! */
 }
 
 .cv-contest {
@@ -868,7 +887,8 @@ a:hover {
         padding-left: 0;
     }
 
-    .cv-dot, .timeline-line {
+    .cv-dot,
+    .timeline-line {
         left: 20px;
     }
 
@@ -881,7 +901,8 @@ a:hover {
     }
 
     .cv-entry {
-        padding: 15px 0;
+        padding: 15px 0 50px 0;
+        /* Reserves 50px of space for mobile details */
     }
 }
 
