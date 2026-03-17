@@ -171,8 +171,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const activeEntry = document.getElementById(`entry-${index}`);
             if (activeEntry) {
                 const textCol = document.getElementById('cv-text-col');
+                const titleGroup = activeEntry.querySelector('.cv-title-group');
                 const colHeight = textCol.clientHeight;
-                const translateY = (colHeight / 2) - (activeEntry.offsetTop + 35);
+                
+                // Calculate position to center the TITLE specifically
+                // titleGroup.offsetTop is relative to entry. padding-top is 25px.
+                const titleCenter = activeEntry.offsetTop + titleGroup.offsetTop + (titleGroup.offsetHeight / 2);
+                const translateY = (colHeight / 2) - titleCenter;
+                
                 cvMenu.style.transform = `translateY(${translateY}px)`;
             }
         };
