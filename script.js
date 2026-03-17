@@ -171,6 +171,18 @@ document.addEventListener('DOMContentLoaded', () => {
             .sort((a, b) => b.year - a.year);
 
         let currentIndex = -1;
+        let lastMouseX = 0;
+        let lastMouseY = 0;
+        let isMouseOverCol = false;
+
+        const apply3DHover = (el, x, y) => {
+            if (!el) return;
+            const colRect = cvImageCol.getBoundingClientRect();
+            // Standardize coordinates relative to the container
+            const rotateX = ((y - (colRect.height / 2)) / (colRect.height / 2)) * -12;
+            const rotateY = ((x - (colRect.width / 2)) / (colRect.width / 2)) * 12;
+            el.style.transform = `scale(1.05) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        };
 
         // Set wrapper height
         cvWrapper.style.height = `calc(${(entries.length) * 100}vh + 80px)`;
@@ -235,6 +247,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const translateY = (colHeight / 2) - anchorPoint;
 
                 cvMenu.style.transform = `translateY(${translateY}px)`;
+
+                // RE-TRIGGER HOVER if mouse is inside
+                if (isMouseOverCol) {
+                    const newActive = document.querySelector('.cv-image-wrapper.active');
+                    if (newActive) {
+                        // Apply with a slight transition to avoid jumps during scroll
+                        newActive.style.transition = 'transform 0.4s ease-out';
+                        apply3DHover(newActive, lastMouseX, lastMouseY);
+                    }
+                }
             }
         };
 
@@ -252,6 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.innerWidth > 968) {
             let hoverTimeout;
             cvImageCol.addEventListener('mouseenter', () => {
+                isMouseOverCol = true;
                 const active = document.querySelector('.cv-image-wrapper.active');
                 if (!active) return;
                 active.style.transition = 'transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)';
@@ -263,17 +286,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             cvImageCol.addEventListener('mousemove', (e) => {
+                const colRect = cvImageCol.getBoundingClientRect();
+                lastMouseX = e.clientX - colRect.left;
+                lastMouseY = e.clientY - colRect.top;
+
                 const active = document.querySelector('.cv-image-wrapper.active');
                 if (!active) return;
-                const colRect = cvImageCol.getBoundingClientRect();
-                const x = e.clientX - colRect.left;
-                const y = e.clientY - colRect.top;
-                const rotateX = ((y - (colRect.height / 2)) / (colRect.height / 2)) * -12;
-                const rotateY = ((x - (colRect.width / 2)) / (colRect.width / 2)) * 12;
-                active.style.transform = `scale(1.05) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                apply3DHover(active, lastMouseX, lastMouseY);
             });
 
             cvImageCol.addEventListener('mouseleave', () => {
+                isMouseOverCol = false;
                 const active = document.querySelector('.cv-image-wrapper.active');
                 if (!active) return;
                 active.style.transition = 'transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)';
