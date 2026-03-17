@@ -826,6 +826,7 @@ a:hover {
     flex-direction: column;
     justify-content: center;
     padding: 20px 0;
+    padding-left: 40px; /* Add padding to leave space for the line/dots */
     cursor: pointer;
 }
 
@@ -846,9 +847,10 @@ a:hover {
     transform: scale(1.05);
 }
 
+/* Alineación milimétrica del punto */
 .cv-dot {
     position: absolute;
-    left: -50px;
+    left: 10px; /* Must match .timeline-line left */
     top: 38px;
     width: 14px;
     height: 14px;
@@ -953,12 +955,11 @@ a:hover {
     .cv-menu-container {
         left: 24px;
         width: calc(100% - 48px);
-        padding-left: 30px;
+        padding-left: 0;
     }
 
-    .cv-dot {
-        left: -30px;
-        top: 22px;
+    .cv-dot, .timeline-line {
+        left: 10px;
     }
 
     .cv-work-title {

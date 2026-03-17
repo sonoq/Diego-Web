@@ -53,16 +53,6 @@ const artworks = [
         description: "Busto en arcilla.",
         showInGallery: false,
         contests: [{ name: "Certamen Nacional", year: 2023 }]
-    },
-    {
-        id: "demo5",
-        title: "Estudio",
-        category: "Dibujo",
-        medium: "Carbón sobre papel",
-        image: "images/retrato.jpg",
-        description: "Estudio — Carbón sobre papel.",
-        showInGallery: false,
-        contests: [{ name: "Exposición Local", year: 2022 }]
     }
 ];
 
