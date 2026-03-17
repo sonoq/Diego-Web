@@ -42,7 +42,27 @@ const artworks = [
         image: "images/padre.jpg",
         description: "Óleo sobre lienzo.",
         showInGallery: true,
-        contests: [{ name: "Concurso II", year: 2024 }] // No link for this one
+        contests: [{ name: "Concurso II", year: 2024 }]
+    },
+    {
+        id: "demo4",
+        title: "Busto",
+        category: "Escultura",
+        medium: "Arcilla volumétrica",
+        image: "images/busto.png",
+        description: "Busto en arcilla.",
+        showInGallery: false,
+        contests: [{ name: "Certamen Nacional", year: 2023 }]
+    },
+    {
+        id: "demo5",
+        title: "Estudio",
+        category: "Dibujo",
+        medium: "Carbón sobre papel",
+        image: "images/retrato.jpg",
+        description: "Estudio — Carbón sobre papel.",
+        showInGallery: false,
+        contests: [{ name: "Exposición Local", year: 2022 }]
     }
 ];
 
@@ -78,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const timelineHTML = entries.map(entry => {
             const contestInfo = `${entry.name} - ${entry.year}`;
-            const contestDisplay = entry.url 
+            const contestDisplay = entry.url
                 ? `<a href="${entry.url}" target="_blank" rel="noopener" class="timeline-link">${contestInfo}</a>`
                 : contestInfo;
 
@@ -91,6 +111,127 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }).join('');
         cvTimeline.innerHTML = `<div class="timeline-line"></div>${timelineHTML}`;
+    }
+
+    // ---- CV Scrollytelling Implementation ---- //
+    const cvWrapper = document.getElementById('cv-wrapper');
+    const cvImageCol = document.getElementById('cv-image-col');
+    const cvMenu = document.getElementById('cv-menu');
+
+    if (cvWrapper && cvImageCol && cvMenu) {
+        const entries = artworks
+            .filter(work => work.contests && work.contests.length > 0)
+            .flatMap(work => work.contests.map(c => ({ ...c, work })))
+            .sort((a, b) => b.year - a.year);
+
+        let currentIndex = -1;
+
+        // Set wrapper height
+        cvWrapper.style.height = `calc(${(entries.length) * 100}vh + 80px)`;
+
+        // Generate DOM Elements
+        entries.forEach((entry, index) => {
+            // Image Wrapper
+            const imgDiv = document.createElement('div');
+            imgDiv.className = `cv-image-wrapper`;
+            imgDiv.id = `img-${index}`;
+            imgDiv.innerHTML = `<img src="${entry.work.image}" alt="${entry.work.title}" loading="${index === 0 ? 'eager' : 'lazy'}">`;
+            imgDiv.addEventListener('click', () => {
+                if (typeof openModal === 'function') openModal(entry.work);
+            });
+            cvImageCol.appendChild(imgDiv);
+
+            // Menu Entry
+            const contestLink = entry.url ? `<a href="${entry.url}" target="_blank" rel="noopener">${entry.name}</a>` : entry.name;
+            const textDiv = document.createElement('div');
+            textDiv.className = `cv-entry`;
+            textDiv.id = `entry-${index}`;
+            textDiv.innerHTML = `
+                <div class="cv-dot"></div>
+                <div class="cv-entry-content">
+                    <div class="cv-title-group">
+                        <h2 class="cv-work-title">${entry.work.title}</h2>
+                        <span class="cv-year-small">(${entry.year})</span>
+                    </div>
+                    <div class="cv-details">
+                        <div class="cv-contest">${contestLink}</div>
+                    </div>
+                </div>
+            `;
+            textDiv.addEventListener('click', () => {
+                const targetScroll = cvWrapper.offsetTop + (index * window.innerHeight);
+                window.scrollTo({ top: targetScroll, behavior: 'auto' });
+            });
+            cvMenu.appendChild(textDiv);
+        });
+
+        const updateCVUI = (index) => {
+            if (index === currentIndex) return;
+            currentIndex = index;
+
+            document.querySelectorAll('.cv-entry').forEach((el, i) => el.classList.toggle('active', i === index));
+            document.querySelectorAll('.cv-image-wrapper').forEach((el, i) => {
+                el.classList.toggle('active', i === index);
+                if (i !== index) {
+                    el.style.transform = '';
+                    el.style.transition = '';
+                }
+            });
+
+            const activeEntry = document.getElementById(`entry-${index}`);
+            if (activeEntry) {
+                const textCol = document.getElementById('cv-text-col');
+                const colHeight = textCol.clientHeight;
+                const translateY = (colHeight / 2) - (activeEntry.offsetTop + 35);
+                cvMenu.style.transform = `translateY(${translateY}px)`;
+            }
+        };
+
+        window.addEventListener('scroll', () => {
+            const rect = cvWrapper.getBoundingClientRect();
+            let scrolledInside = -rect.top + 80;
+            if (scrolledInside < 0) scrolledInside = 0;
+
+            let newIndex = Math.round(scrolledInside / window.innerHeight);
+            newIndex = Math.max(0, Math.min(entries.length - 1, newIndex));
+            updateCVUI(newIndex);
+        }, { passive: true });
+
+        // 3D Hover Effect
+        if (window.innerWidth > 968) {
+            let hoverTimeout;
+            cvImageCol.addEventListener('mouseenter', () => {
+                const active = document.querySelector('.cv-image-wrapper.active');
+                if (!active) return;
+                active.style.transition = 'transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)';
+                clearTimeout(hoverTimeout);
+                hoverTimeout = setTimeout(() => {
+                    const activeNow = document.querySelector('.cv-image-wrapper.active');
+                    if (activeNow) activeNow.style.transition = 'transform 0.15s ease-out';
+                }, 800);
+            });
+
+            cvImageCol.addEventListener('mousemove', (e) => {
+                const active = document.querySelector('.cv-image-wrapper.active');
+                if (!active) return;
+                const colRect = cvImageCol.getBoundingClientRect();
+                const x = e.clientX - colRect.left;
+                const y = e.clientY - colRect.top;
+                const rotateX = ((y - (colRect.height / 2)) / (colRect.height / 2)) * -12;
+                const rotateY = ((x - (colRect.width / 2)) / (colRect.width / 2)) * 12;
+                active.style.transform = `scale(1.05) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            cvImageCol.addEventListener('mouseleave', () => {
+                const active = document.querySelector('.cv-image-wrapper.active');
+                if (!active) return;
+                active.style.transition = 'transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)';
+                active.style.transform = `scale(1) rotateX(0deg) rotateY(0deg)`;
+            });
+        }
+
+        // Initial trigger
+        window.dispatchEvent(new Event('scroll'));
     }
 
     // ---- Fade-in on scroll (IntersectionObserver) ---- //
@@ -266,7 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const work = artworks.find(w => w.id === id);
                 openModal(work);
             }
-            
+
             // Handle timeline clicks
             const timelineWork = e.target.closest('.clickable-work');
             if (timelineWork) {

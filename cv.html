@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV — Diego Peribañez Villalba</title>
+    <title>Trayectoria — Diego Peribañez Villalba</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -15,10 +16,10 @@
 
 <body class="cv-page">
 
-    <!-- Navigation -->
-    <nav id="main-nav" class="scrolled"> <!-- Always scrolled on CV page for visibility -->
+    <!-- Navegación Fija -->
+    <nav id="main-nav">
         <div class="nav-inner">
-            <a href="index.html" class="nav-logo" style="opacity: 1; visibility: visible;">DIEGO PERIBAÑEZ</a>
+            <a href="index.html" class="nav-logo">DIEGO PERIBAÑEZ</a>
             <ul class="nav-links">
                 <li><a href="index.html#sobre-mi">Sobre mí</a></li>
                 <li><a href="index.html#galeria">Galería</a></li>
@@ -27,14 +28,19 @@
         </div>
     </nav>
 
-    <main class="section cv-section">
-        <div class="container">
-            <h1 class="section-title fade-in">Trayectoria y Concursos</h1>
-            <div class="title-divider fade-in"></div>
+    <!-- Contenedor Principal con Scroll Mapeado -->
+    <main class="cv-scrollytelling-wrapper" id="cv-wrapper">
+        <div class="cv-sticky-view">
+            <!-- Izquierda: Imágenes -->
+            <div class="cv-image-col" id="cv-image-col">
+                <!-- Generado por JS -->
+            </div>
 
-            <div class="cv-timeline-wrapper fade-in">
-                <div id="cv-timeline" class="cv-timeline">
-                    <!-- Timeline items injected by script.js -->
+            <!-- Derecha: Menú Dinámico -->
+            <div class="cv-text-col" id="cv-text-col">
+                <div class="cv-menu-container" id="cv-menu">
+                    <div class="timeline-line"></div>
+                    <!-- Textos generados por JS -->
                 </div>
             </div>
         </div>
@@ -42,11 +48,9 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-inner">
-                <span class="footer-logo">DIEGO PERIBAÑEZ</span>
-                <span class="footer-copy">&copy; 2025 Diego Peribañez Villalba. Todos los derechos reservados.</span>
-            </div>
+        <div class="footer-inner">
+            <span class="footer-logo">DIEGO PERIBAÑEZ</span>
+            <span class="footer-copy">&copy; 2025 Diego Peribañez Villalba. Todos los derechos reservados.</span>
         </div>
     </footer>
 
