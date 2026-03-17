@@ -723,6 +723,18 @@ a:hover {
     color: var(--text-secondary);
 }
 
+.timeline-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    border-bottom: 1px solid transparent;
+}
+
+.timeline-link:hover {
+    color: var(--secondary);
+    border-bottom-color: var(--secondary);
+}
+
 /* Alternate sides for visual interest (optional, but keep it centered for now as per image) */
 /* If you want staggered text, we can use :nth-child(even/odd) */
 

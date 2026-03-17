@@ -12,7 +12,7 @@ const artworks = [
         image: "images/kore.png",
         description: "Escultura en madera de tilo policromada.",
         showInGallery: true,
-        contests: [{ name: "Premio Reina Sofía", year: 2025 }]
+        contests: [{ name: "Premio Reina Sofía", year: 2025, url: "https://fundacionreinasofia.es/" }]
     },
     {
         id: "retrato",
@@ -22,7 +22,7 @@ const artworks = [
         image: "images/retrato.jpg",
         description: "Óleo sobre lienzo.",
         showInGallery: true,
-        contests: [{ name: "Premio Reina Sofía", year: 2024 }]
+        contests: [{ name: "Premio Reina Sofía", year: 2024, url: "https://fundacionreinasofia.es/" }]
     },
     {
         id: "busto",
@@ -42,7 +42,7 @@ const artworks = [
         image: "images/padre.jpg",
         description: "Óleo sobre lienzo.",
         showInGallery: true,
-        contests: [{ name: "Concurso II", year: 2024 }]
+        contests: [{ name: "Concurso II", year: 2024 }] // No link for this one
     }
 ];
 
@@ -76,13 +76,20 @@ document.addEventListener('DOMContentLoaded', () => {
             .flatMap(work => work.contests.map(c => ({ ...c, work })))
             .sort((a, b) => b.year - a.year); // Descending by year
 
-        const timelineHTML = entries.map(entry => `
-            <div class="timeline-item fade-in">
-                <div class="timeline-work clickable-work" data-id="${entry.work.id}">${entry.work.title.toUpperCase()}</div>
-                <div class="timeline-dot"></div>
-                <div class="timeline-info">${entry.name} - ${entry.year}</div>
-            </div>
-        `).join('');
+        const timelineHTML = entries.map(entry => {
+            const contestInfo = `${entry.name} - ${entry.year}`;
+            const contestDisplay = entry.url 
+                ? `<a href="${entry.url}" target="_blank" rel="noopener" class="timeline-link">${contestInfo}</a>`
+                : contestInfo;
+
+            return `
+                <div class="timeline-item fade-in">
+                    <div class="timeline-work clickable-work" data-id="${entry.work.id}">${entry.work.title.toUpperCase()}</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-info">${contestDisplay}</div>
+                </div>
+            `;
+        }).join('');
         cvTimeline.innerHTML = `<div class="timeline-line"></div>${timelineHTML}`;
     }
 
