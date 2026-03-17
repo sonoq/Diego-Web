@@ -678,8 +678,8 @@ a:hover {
 
 .cv-image-wrapper {
     position: absolute;
-    max-width: 65%;
-    max-height: 65vh;
+    max-width: 70%;
+    max-height: 70vh;
     border-radius: var(--radius);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     opacity: 0;
@@ -699,7 +699,7 @@ a:hover {
 .cv-image-wrapper img {
     display: block;
     max-width: 100%;
-    max-height: 65vh;
+    max-height: 70vh;
     width: auto;
     height: auto;
     border-radius: var(--radius);
