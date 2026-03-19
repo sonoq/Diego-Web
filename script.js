@@ -5,59 +5,124 @@
 
 const artworks = [
     {
+        id: "pilar",
+        title: "Pilar",
+        year: 2021,
+        category: "Escultura",
+        medium: "Modelado en barro, copia resina acrílica",
+        dimensions: "111x34x23cm",
+        image: "images/Pilar.jpeg",
+        description: "Modelado en barro, copia resina acrílica. 111x34x23cm",
+        showInGallery: true,
+        contests: []
+    },
+    {
+        id: "teruel-1966",
+        title: "Teruel 1966",
+        year: 2022,
+        category: "Pintura",
+        medium: "Óleo sobre lienzo",
+        dimensions: "130x195cm",
+        image: "images/Teruel_1966.jpeg",
+        description: "Óleo sobre lienzo. 130x195cm",
+        showInGallery: true,
+        contests: []
+    },
+    {
+        id: "malaga-1971",
+        title: "Málaga 1971",
+        year: 2023,
+        category: "Pintura",
+        medium: "Óleo sobre tabla",
+        dimensions: "63x73cm",
+        image: "images/malaga_1971.jpg",
+        description: "Óleo sobre tabla. 63x73cm",
+        showInGallery: true,
+        contests: []
+    },
+    {
+        id: "chus",
+        title: "Chus",
+        year: 2020,
+        category: "Pintura",
+        medium: "Óleo sobre lienzo",
+        dimensions: "114x195cm",
+        image: "images/Chus.jpeg",
+        description: "Óleo sobre lienzo. 114x195cm",
+        showInGallery: true,
+        contests: []
+    },
+    {
+        id: "barcelona-1950",
+        title: "Barcelona 1950",
+        year: 2021,
+        category: "Pintura",
+        medium: "Óleo sobre lienzo",
+        dimensions: "73x92cm",
+        image: "images/Barcelona_1950.jpeg",
+        description: "Óleo sobre lienzo. 73x92cm",
+        showInGallery: true,
+        contests: []
+    },
+    {
+        id: "elena-y-su-circunstancia",
+        title: "Elena y su circunstancia",
+        year: 2024,
+        category: "Pintura",
+        medium: "Óleo sobre tabla",
+        dimensions: "62x73cm",
+        image: "images/Elena_y_su_circunstancia.jpeg",
+        description: "Óleo sobre tabla. 62x73cm",
+        showInGallery: true,
+        contests: []
+    },
+    {
         id: "kore",
         title: "Koré",
         year: 2024,
         category: "Escultura",
-        medium: "Madera de tilo policromada",
+        medium: "Talla en madera policromada",
+        dimensions: "164x48x30cm",
         image: "images/kore.png",
-        description: "Escultura en madera de tilo policromada.",
+        description: "Talla en madera policromada. 164x48x30cm",
         showInGallery: true,
         contests: [{ name: "Nominado — Reina Sofía 2024", url: "https://fundacionreinasofia.es/" }]
     },
     {
-        id: "retrato",
-        title: "Retrato",
+        id: "reflejo-de-un-matrimonio",
+        title: "Reflejo de un matrimonio",
         year: 2023,
         category: "Pintura",
         medium: "Óleo sobre lienzo",
-        image: "images/retrato.jpg",
-        description: "Óleo sobre lienzo.",
-        showInGallery: true,
-        contests: [{ name: "Premiado — Reina Sofía 2023", url: "https://fundacionreinasofia.es/" }]
-    },
-    {
-        id: "busto",
-        title: "Busto en arcilla",
-        year: 2024,
-        category: "Escultura",
-        medium: "Estudio volumétrico",
-        image: "images/busto.png",
-        description: "Busto — Escultura en arcilla.",
+        dimensions: "81x130cm",
+        image: "images/Reflejo_de_un matrimonio.jpg",
+        description: "Óleo sobre lienzo. 81x130cm",
         showInGallery: true,
         contests: []
     },
     {
         id: "padre",
         title: "Padre",
+        year: 2022,
+        category: "Pintura",
+        medium: "Óleo sobre lienzo",
+        dimensions: "130x81cm",
+        image: "images/padre.jpg",
+        description: "Óleo sobre lienzo. 130x81cm",
+        showInGallery: true,
+        contests: []
+    },
+    {
+        id: "calle-las-barcas-valencia",
+        title: "Calle las barcas, Valencia",
         year: 2024,
         category: "Pintura",
         medium: "Óleo sobre lienzo",
-        image: "images/padre.jpg",
-        description: "Óleo sobre lienzo.",
+        dimensions: "99x108cm",
+        image: "images/CalleLasbarcas_Valencia.jpeg",
+        description: "Óleo sobre lienzo. 99x108cm",
         showInGallery: true,
-        contests: [{ name: "Concurso II" }]
-    },
-    {
-        id: "demo4",
-        title: "Busto",
-        year: 2023,
-        category: "Escultura",
-        medium: "Arcilla volumétrica",
-        image: "images/busto.png",
-        description: "Busto en arcilla.",
-        showInGallery: false,
-        contests: [{ name: "Certamen Nacional" }]
+        contests: [{ name: "Seleccionado — Reina Sofía", url: "https://fundacionreinasofia.es/" }]
     }
 ];
 
@@ -73,7 +138,12 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.style.display = "flex";
         modal.classList.add('show');
         modalImg.src = work.image;
-        captionText.innerHTML = `${work.title} — ${work.medium}`;
+        
+        let details = work.medium;
+        if (work.dimensions) details += `. ${work.dimensions}`;
+        if (work.year) details += ` (${work.year})`;
+        
+        captionText.innerHTML = `<strong>${work.title}</strong><br>${details}`;
         document.body.style.overflow = 'hidden'; // Prevent background scroll
     };
 
