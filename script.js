@@ -163,9 +163,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const heightLine = document.getElementById('measure-height');
 
         if (dimSpan && wrapper && hasDimensions) {
-            // Apply the properties directly from the artwork object
-            if (heightLine) heightLine.querySelector('.measure-val').textContent = `${work.tall} cm`;
-            if (widthLine) widthLine.querySelector('.measure-val').textContent = `${work.wide} cm`;
+            // Swap values to fix inversion: heightLine (vertical) -> wide, widthLine (horizontal) -> tall
+            if (heightLine) heightLine.querySelector('.measure-val').textContent = `${work.wide} cm`;
+            if (widthLine) widthLine.querySelector('.measure-val').textContent = `${work.tall} cm`;
 
             dimSpan.addEventListener('mouseenter', () => {
                 wrapper.classList.add('show-measures');
