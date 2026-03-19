@@ -1,5 +1,5 @@
-/* ============================================
-   Diego Peribañez Villalba — Script
+﻿/* ============================================
+   Diego PeribaÃ±ez Villalba â€” Script
    Data + Render + Scroll + Interactive
    ============================================ */
 
@@ -8,78 +8,78 @@ const artworks = [
         id: "pilar",
         title: "Pilar",
         category: "Escultura",
-        medium: "Modelado en barro, copia resina acrílica",
+        medium: "Modelado en barro, copia resina acrÃ­lica",
         tall: 111,
         wide: 34,
         depth: 23,
         image: "images/Pilar.jpeg",
-        description: "Modelado en barro, copia resina acrílica. 111x34x23cm",
+        description: "Modelado en barro, copia resina acrÃ­lica. 111x34x23cm",
         showInGallery: true,
-        contests: [{ name: "Modelado en barro, copia resina acrílica - 111x34x23cm", url: "" }]
+        contests: [{ name: "Modelado en barro, copia resina acrÃ­lica - 111x34x23cm", url: "" }]
     },
     {
         id: "teruel-1966",
         title: "Teruel 1966",
         category: "Pintura",
-        medium: "Óleo sobre lienzo",
+        medium: "Ã“leo sobre lienzo",
         tall: 130,
         wide: 195,
         image: "images/Teruel_1966.jpeg",
-        description: "Óleo sobre lienzo. 130x195cm",
+        description: "Ã“leo sobre lienzo. 130x195cm",
         showInGallery: true,
-        contests: [{ name: "Óleo sobre lienzo - 130x195cm", url: "" }]
+        contests: [{ name: "Ã“leo sobre lienzo - 130x195cm", url: "" }]
     },
     {
         id: "malaga-1971",
-        title: "Málaga 1971",
+        title: "MÃ¡laga 1971",
         category: "Pintura",
-        medium: "Óleo sobre tabla",
+        medium: "Ã“leo sobre tabla",
         tall: 63,
         wide: 73,
         image: "images/malaga_1971.jpeg",
-        description: "Óleo sobre tabla. 63x73cm",
+        description: "Ã“leo sobre tabla. 63x73cm",
         showInGallery: true,
-        contests: [{ name: "Óleo sobre tabla - 63x73cm", url: "" }]
+        contests: [{ name: "Ã“leo sobre tabla - 63x73cm", url: "" }]
     },
     {
         id: "chus",
         title: "Chus",
         category: "Pintura",
-        medium: "Óleo sobre lienzo",
+        medium: "Ã“leo sobre lienzo",
         tall: 114,
         wide: 195,
         image: "images/Chus.jpeg",
-        description: "Óleo sobre lienzo. 114x195cm",
+        description: "Ã“leo sobre lienzo. 114x195cm",
         showInGallery: true,
-        contests: [{ name: "Óleo sobre lienzo - 114x195cm", url: "" }]
+        contests: [{ name: "Ã“leo sobre lienzo - 114x195cm", url: "" }]
     },
     {
         id: "barcelona-1950",
         title: "Barcelona 1950",
         category: "Pintura",
-        medium: "Óleo sobre lienzo",
+        medium: "Ã“leo sobre lienzo",
         tall: 73,
         wide: 92,
         image: "images/Barcelona_1950.jpeg",
-        description: "Óleo sobre lienzo. 73x92cm",
+        description: "Ã“leo sobre lienzo. 73x92cm",
         showInGallery: true,
-        contests: [{ name: "Óleo sobre lienzo - 73x92cm", url: "" }]
+        contests: [{ name: "Ã“leo sobre lienzo - 73x92cm", url: "" }]
     },
     {
         id: "elena-y-su-circunstancia",
         title: "Elena y su circunstancia",
         category: "Pintura",
-        medium: "Óleo sobre tabla",
+        medium: "Ã“leo sobre tabla",
         tall: 62,
         wide: 73,
         image: "images/Elena_y_su_circunstancia.jpeg",
-        description: "Óleo sobre tabla. 62x73cm",
+        description: "Ã“leo sobre tabla. 62x73cm",
         showInGallery: true,
-        contests: [{ name: "Óleo sobre tabla - 62x73cm", url: "" }]
+        contests: [{ name: "Ã“leo sobre tabla - 62x73cm", url: "" }]
     },
     {
         id: "kore",
-        title: "Koré",
+        title: "KorÃ©",
         category: "Escultura",
         medium: "Talla en madera policromada",
         tall: 164,
@@ -94,37 +94,37 @@ const artworks = [
         id: "reflejo-de-un-matrimonio",
         title: "Reflejo de un matrimonio",
         category: "Pintura",
-        medium: "Óleo sobre lienzo",
+        medium: "Ã“leo sobre lienzo",
         tall: 81,
         wide: 130,
         image: "images/Reflejo_de_un matrimonio.jpeg",
-        description: "Óleo sobre lienzo. 81x130cm",
+        description: "Ã“leo sobre lienzo. 81x130cm",
         showInGallery: true,
-        contests: [{ name: "Óleo sobre lienzo - 81x130cm", url: "" }]
+        contests: [{ name: "Ã“leo sobre lienzo - 81x130cm", url: "" }]
     },
     {
         id: "padre",
         title: "Padre",
         category: "Pintura",
-        medium: "Óleo sobre lienzo",
+        medium: "Ã“leo sobre lienzo",
         tall: 130,
         wide: 81,
         image: "images/padre.jpeg",
-        description: "Óleo sobre lienzo. 130x81cm",
+        description: "Ã“leo sobre lienzo. 130x81cm",
         showInGallery: true,
-        contests: [{ name: "Óleo sobre lienzo - 130x81cm", url: "" }]
+        contests: [{ name: "Ã“leo sobre lienzo - 130x81cm", url: "" }]
     },
     {
         id: "calle-las-barcas-valencia",
         title: "Calle las barcas, Valencia",
         category: "Pintura",
-        medium: "Óleo sobre lienzo",
+        medium: "Ã“leo sobre lienzo",
         tall: 99,
         wide: 108,
         image: "images/CalleLasbarcas_Valencia.jpeg",
-        description: "Óleo sobre lienzo. 99x108cm",
+        description: "Ã“leo sobre lienzo. 99x108cm",
         showInGallery: true,
-        contests: [{ name: "Óleo sobre lienzo - 99x108cm", url: "" }]
+        contests: [{ name: "Ã“leo sobre lienzo - 99x108cm", url: "" }]
     }
 ];
 
@@ -493,3 +493,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // (Modal logic moved to top of DOMContentLoaded)
 
 });
+
