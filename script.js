@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (work.dimensions) details += `. ${work.dimensions}`;
         if (work.year) details += ` (${work.year})`;
         
-        captionText.innerHTML = `<strong>${work.title}</strong><br>${details}`;
+        captionText.innerHTML = `<strong>"${work.title}"</strong><br>${details}`;
         document.body.style.overflow = 'hidden'; // Prevent background scroll
     };
 
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="gallery-image-wrapper">
                         <img src="${work.image}" alt="${work.title} — ${work.medium}" loading="lazy">
                         <div class="gallery-overlay">
-                            <span class="gallery-label">${work.title}</span>
+                            <span class="gallery-label">"${work.title}"</span>
                             <span class="gallery-year">${work.medium}</span>
                         </div>
                     </div>
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             return `
                 <div class="timeline-item fade-in">
-                    <div class="timeline-work clickable-work" data-id="${entry.work.id}">${entry.work.title.toUpperCase()}</div>
+                    <div class="timeline-work clickable-work" data-id="${entry.work.id}">"${entry.work.title.toUpperCase()}"</div>
                     <div class="timeline-dot"></div>
                     <div class="timeline-info">${contestDisplay}</div>
                 </div>
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="cv-dot"></div>
                 <div class="cv-entry-content">
                     <div class="cv-title-group">
-                        <h2 class="cv-work-title">${entry.work.title}</h2>
+                        <h2 class="cv-work-title">"${entry.work.title}"</h2>
                         <span class="cv-year-small">(${entry.work.year})</span>
                     </div>
                     <div class="cv-details">
