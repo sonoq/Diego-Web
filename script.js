@@ -140,8 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalImg.src = work.image;
         
         let details = work.medium;
-        if (work.dimensions) details += `. ${work.dimensions}`;
-        if (work.year) details += ` (${work.year})`;
+        if (work.dimensions) details += ` - ${work.dimensions}`;
         
         captionText.innerHTML = `<strong>"${work.title}"</strong><br>${details}`;
         document.body.style.overflow = 'hidden'; // Prevent background scroll
