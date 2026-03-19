@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let details = work.medium;
         if (work.dimensions) details += ` - ${work.dimensions}`;
         
-        captionText.innerHTML = `<strong>"${work.title}"</strong><br>${details}`;
+        captionText.innerHTML = `<span class="modal-title">"${work.title}"</span><br><span class="modal-details">${details}</span>`;
         document.body.style.overflow = 'hidden'; // Prevent background scroll
     };
 

@@ -611,11 +611,24 @@ a:hover {
     width: 80%;
     max-width: 700px;
     text-align: center;
-    color: var(--secondary);
+    color: var(--text-primary);
     padding: 20px 0;
     font-family: var(--font-display);
     font-size: 1.2rem;
     animation: zoomIn 0.3s ease;
+}
+
+.modal-title {
+    font-weight: 700;
+    color: var(--text-primary);
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.modal-details {
+    color: var(--secondary);
+    font-size: 1rem;
+    font-family: var(--font-body);
 }
 
 .modal-close {
