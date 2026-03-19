@@ -1,0 +1,41 @@
+<!-- HTML Structure (index.html) -->
+<div class="carousel-wrapper">
+    <button id="carousel-prev" class="carousel-btn prev-btn" aria-label="Anterior">&#10094;</button>
+    <div class="gallery-grid" id="gallery-carousel">
+        <!-- Artworks injected by script.js -->
+    </div>
+    <button id="carousel-next" class="carousel-btn next-btn" aria-label="Siguiente">&#10095;</button>
+</div>
+
+/* CSS Styles (style.css) */
+.carousel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.gallery-grid {
+    display: flex;
+    gap: 20px;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.gallery-item {
+    flex: 0 0 calc(33.333% - 14px);
+    ...
+}
+
+/* JS Logic (script.js) */
+// ---- Circular Gallery Carousel ---- //
+const galleryCarouselContainer = document.getElementById('gallery-carousel');
+const btnPrev = document.getElementById('carousel-prev');
+const btnNext = document.getElementById('carousel-next');
+
+if (galleryCarouselContainer && btnPrev && btnNext) {
+    ...
+}

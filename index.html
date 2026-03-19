@@ -106,7 +106,12 @@
         <div class="container">
             <div class="sobre-mi-grid">
                 <div class="sobre-mi-image fade-in">
-                    <img src="images/Reflejo_de_un matrimonio.jpg" alt="Obra: Reflejo de un matrimonio — Diego Peribáñez">
+                    <div class="collage-item" data-id="reflejo-de-un-matrimonio">
+                        <img src="images/Reflejo_de_un matrimonio.jpg" alt="Obra: Reflejo de un matrimonio — Diego Peribáñez">
+                        <div class="collage-overlay">
+                            <span class="medium-text">Reflejo de un matrimonio</span>
+                        </div>
+                    </div>
                     <div class="image-accent"></div>
                 </div>
                 <div class="sobre-mi-text fade-in">
@@ -132,12 +137,31 @@
             <div class="gallery-cta-wrapper fade-in">
                 <a href="obra-sel.html" class="gallery-cta">VER MÁS</a>
             </div>
-            <div class="carousel-wrapper">
-                <button id="carousel-prev" class="carousel-btn prev-btn" aria-label="Anterior">&#10094;</button>
-                <div class="gallery-grid" id="gallery-carousel">
-                    <!-- Artworks injected by script.js -->
+
+            <!-- Collage de obra -->
+            <div class="gallery-collage fade-in">
+                <div class="collage-column left">
+                    <div class="collage-item small" data-id="padre">
+                        <img src="images/padre.jpg" alt="Obra: Padre — Diego Peribáñez" loading="lazy">
+                        <div class="collage-overlay">
+                            <span class="medium-text">Padre</span>
+                        </div>
+                    </div>
+                    <div class="collage-item small" data-id="calle-las-barcas-valencia">
+                        <img src="images/CalleLasbarcas_Valencia.jpeg" alt="Obra: Calle las barcas, Valencia — Diego Peribáñez" loading="lazy">
+                        <div class="collage-overlay">
+                            <span class="small-text">Calle las barcas, Valencia</span>
+                        </div>
+                    </div>
                 </div>
-                <button id="carousel-next" class="carousel-btn next-btn" aria-label="Siguiente">&#10095;</button>
+                <div class="collage-column right">
+                    <div class="collage-item large" data-id="malaga-1971">
+                        <img src="images/malaga_1971.jpg" alt="Obra: Málaga 1971 — Diego Peribáñez" loading="lazy">
+                        <div class="collage-overlay">
+                            <span class="large-text">Málaga 1971</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

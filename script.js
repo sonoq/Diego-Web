@@ -185,27 +185,16 @@ document.addEventListener('DOMContentLoaded', () => {
             // We need access to the entries array here... 
             // Better to use data-id like the others or handle it in the listener below.
         }
+        // Collage items
+        const collageItem = e.target.closest('.collage-item');
+        if (collageItem) {
+            const id = collageItem.getAttribute('data-id');
+            const work = artworks.find(w => w.id === id);
+            if (work) openModal(work);
+            return;
+        }
     });
 
-
-    // ---- Render Gallery ---- //
-    const galleryCarousel = document.getElementById('gallery-carousel');
-    if (galleryCarousel) {
-        const galleryHTML = artworks
-            .filter(work => work.showInGallery)
-            .map(work => `
-                <div class="gallery-item fade-in" data-id="${work.id}">
-                    <div class="gallery-image-wrapper">
-                        <img src="${work.image}" alt="${work.title} — ${work.medium}" loading="lazy">
-                        <div class="gallery-overlay">
-                            <span class="gallery-label">"${work.title}"</span>
-                            <span class="gallery-year">${work.medium}</span>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        galleryCarousel.innerHTML = galleryHTML;
-    }
 
     // ---- Render CV Timeline ---- //
     const cvTimeline = document.getElementById('cv-timeline');
@@ -461,74 +450,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    // ---- Circular Gallery Carousel ---- //
-    // Re-select because it was injected dynamically or doesn't exist on all pages
-    const galleryCarouselContainer = document.getElementById('gallery-carousel');
-    const btnPrev = document.getElementById('carousel-prev');
-    const btnNext = document.getElementById('carousel-next');
-
-    if (galleryCarouselContainer && btnPrev && btnNext) {
-        let isScrolling = false;
-        const scrollWaitTime = 500; // time in ms to block new clicks while animating
-
-        const scrollNext = () => {
-            if (isScrolling) return;
-            isScrolling = true;
-
-            const items = galleryCarouselContainer.querySelectorAll('.gallery-item');
-            if (items.length === 0) {
-                isScrolling = false;
-                return;
-            }
-
-            // Get width to scroll + gap
-            const scrollAmount = items[0].offsetWidth + (parseInt(window.getComputedStyle(galleryCarouselContainer).gap) || 0);
-
-            // Smoothly scroll
-            galleryCarouselContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-
-            // After transition, take the first child and append it to the end to create infinite loops
-            setTimeout(() => {
-                galleryCarouselContainer.appendChild(items[0]);
-                // Instantly adjust scroll position back so it feels seamless
-                galleryCarouselContainer.scrollBy({ left: -scrollAmount, behavior: 'instant' });
-                isScrolling = false;
-            }, scrollWaitTime);
-        };
-
-        const scrollPrev = () => {
-            if (isScrolling) return;
-            isScrolling = true;
-
-            const items = galleryCarouselContainer.querySelectorAll('.gallery-item');
-            if (items.length === 0) {
-                isScrolling = false;
-                return;
-            }
-
-            // Get width to scroll + gap
-            const scrollAmount = items[0].offsetWidth + (parseInt(window.getComputedStyle(galleryCarouselContainer).gap) || 0);
-
-            // Take the last child and prepend it to the start
-            const lastItem = items[items.length - 1];
-            galleryCarouselContainer.prepend(lastItem);
-
-            // Instantly offset scroll so the current view doesn't jump
-            galleryCarouselContainer.scrollBy({ left: scrollAmount, behavior: 'instant' });
-
-            // Ensure reflow happens before animating back
-            requestAnimationFrame(() => {
-                galleryCarouselContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-                setTimeout(() => {
-                    isScrolling = false;
-                }, scrollWaitTime);
-            });
-        };
-
-        btnNext.addEventListener('click', scrollNext);
-        btnPrev.addEventListener('click', scrollPrev);
-    }
 
     // (Modal logic moved to top of DOMContentLoaded)
 
