@@ -202,7 +202,15 @@
     <!-- Image Modal -->
     <div id="image-modal" class="modal">
         <span class="modal-close">&times;</span>
-        <img class="modal-content" id="modal-img">
+        <div class="modal-img-wrapper">
+            <img class="modal-content" id="modal-img">
+            <div id="measure-width" class="measure-line bottom-measure">
+                <span class="measure-val"></span>
+            </div>
+            <div id="measure-height" class="measure-line right-measure">
+                <span class="measure-val"></span>
+            </div>
+        </div>
         <div id="modal-caption"></div>
     </div>
 

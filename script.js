@@ -9,7 +9,9 @@ const artworks = [
         title: "Pilar",
         category: "Escultura",
         medium: "Modelado en barro, copia resina acrílica",
-        dimensions: "111x34x23cm",
+        tall: 111,
+        wide: 34,
+        depth: 23,
         image: "images/Pilar.jpeg",
         description: "Modelado en barro, copia resina acrílica. 111x34x23cm",
         showInGallery: true,
@@ -20,7 +22,8 @@ const artworks = [
         title: "Teruel 1966",
         category: "Pintura",
         medium: "Óleo sobre lienzo",
-        dimensions: "130x195cm",
+        tall: 130,
+        wide: 195,
         image: "images/Teruel_1966.jpeg",
         description: "Óleo sobre lienzo. 130x195cm",
         showInGallery: true,
@@ -31,7 +34,8 @@ const artworks = [
         title: "Málaga 1971",
         category: "Pintura",
         medium: "Óleo sobre tabla",
-        dimensions: "63x73cm",
+        tall: 63,
+        wide: 73,
         image: "images/malaga_1971.jpeg",
         description: "Óleo sobre tabla. 63x73cm",
         showInGallery: true,
@@ -42,7 +46,8 @@ const artworks = [
         title: "Chus",
         category: "Pintura",
         medium: "Óleo sobre lienzo",
-        dimensions: "114x195cm",
+        tall: 114,
+        wide: 195,
         image: "images/Chus.jpeg",
         description: "Óleo sobre lienzo. 114x195cm",
         showInGallery: true,
@@ -53,7 +58,8 @@ const artworks = [
         title: "Barcelona 1950",
         category: "Pintura",
         medium: "Óleo sobre lienzo",
-        dimensions: "73x92cm",
+        tall: 73,
+        wide: 92,
         image: "images/Barcelona_1950.jpeg",
         description: "Óleo sobre lienzo. 73x92cm",
         showInGallery: true,
@@ -64,7 +70,8 @@ const artworks = [
         title: "Elena y su circunstancia",
         category: "Pintura",
         medium: "Óleo sobre tabla",
-        dimensions: "62x73cm",
+        tall: 62,
+        wide: 73,
         image: "images/Elena_y_su_circunstancia.jpeg",
         description: "Óleo sobre tabla. 62x73cm",
         showInGallery: true,
@@ -75,7 +82,9 @@ const artworks = [
         title: "Koré",
         category: "Escultura",
         medium: "Talla en madera policromada",
-        dimensions: "164x48x30cm",
+        tall: 164,
+        wide: 48,
+        depth: 30,
         image: "images/kore.jpeg",
         description: "Talla en madera policromada. 164x48x30cm",
         showInGallery: true,
@@ -86,7 +95,8 @@ const artworks = [
         title: "Reflejo de un matrimonio",
         category: "Pintura",
         medium: "Óleo sobre lienzo",
-        dimensions: "81x130cm",
+        tall: 81,
+        wide: 130,
         image: "images/Reflejo_de_un matrimonio.jpeg",
         description: "Óleo sobre lienzo. 81x130cm",
         showInGallery: true,
@@ -97,7 +107,8 @@ const artworks = [
         title: "Padre",
         category: "Pintura",
         medium: "Óleo sobre lienzo",
-        dimensions: "130x81cm",
+        tall: 130,
+        wide: 81,
         image: "images/padre.jpeg",
         description: "Óleo sobre lienzo. 130x81cm",
         showInGallery: true,
@@ -108,7 +119,8 @@ const artworks = [
         title: "Calle las barcas, Valencia",
         category: "Pintura",
         medium: "Óleo sobre lienzo",
-        dimensions: "99x108cm",
+        tall: 99,
+        wide: 108,
         image: "images/CalleLasbarcas_Valencia.jpeg",
         description: "Óleo sobre lienzo. 99x108cm",
         showInGallery: true,
@@ -130,10 +142,38 @@ document.addEventListener('DOMContentLoaded', () => {
         modalImg.src = work.image;
 
         let details = work.medium;
-        if (work.dimensions) details += ` - ${work.dimensions}`;
+        
+        // Dynamically build the dimensions string from the new data structure
+        let hasDimensions = work.tall && work.wide;
+        if (hasDimensions) {
+            let dimString = `${work.tall}x${work.wide}`;
+            if (work.depth) dimString += `x${work.depth}`; // Add depth if it's a sculpture
+            dimString += 'cm';
+            
+            details += ` - <span class="hoverable-dimensions">${dimString}</span>`;
+        }
 
         captionText.innerHTML = `<span class="modal-title">"${work.title}"</span><br><span class="modal-details">${details}</span>`;
-        document.body.style.overflow = 'hidden'; // Prevent background scroll
+        document.body.style.overflow = 'hidden'; 
+        
+        // --- Measurement Interaction Logic ---
+        const dimSpan = captionText.querySelector('.hoverable-dimensions');
+        const wrapper = document.querySelector('.modal-img-wrapper');
+        const widthLine = document.getElementById('measure-width');
+        const heightLine = document.getElementById('measure-height');
+
+        if (dimSpan && wrapper && hasDimensions) {
+            // Apply the properties directly from the artwork object
+            if (heightLine) heightLine.querySelector('.measure-val').textContent = `${work.tall} cm`;
+            if (widthLine) widthLine.querySelector('.measure-val').textContent = `${work.wide} cm`;
+
+            dimSpan.addEventListener('mouseenter', () => {
+                wrapper.classList.add('show-measures');
+            });
+            dimSpan.addEventListener('mouseleave', () => {
+                wrapper.classList.remove('show-measures');
+            });
+        }
     };
 
     const closeModal = () => {
