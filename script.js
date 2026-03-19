@@ -13,7 +13,7 @@ const artworks = [
         image: "images/Pilar.jpeg",
         description: "Modelado en barro, copia resina acrílica. 111x34x23cm",
         showInGallery: true,
-        contests: []
+        contests: [{ name: "Modelado en barro, copia resina acrílica - 111x34x23cm", url: "" }]
     },
     {
         id: "teruel-1966",
@@ -24,7 +24,7 @@ const artworks = [
         image: "images/Teruel_1966.jpeg",
         description: "Óleo sobre lienzo. 130x195cm",
         showInGallery: true,
-        contests: []
+        contests: [{ name: "Óleo sobre lienzo - 130x195cm", url: "" }]
     },
     {
         id: "malaga-1971",
@@ -35,7 +35,7 @@ const artworks = [
         image: "images/malaga_1971.jpeg",
         description: "Óleo sobre tabla. 63x73cm",
         showInGallery: true,
-        contests: []
+        contests: [{ name: "Óleo sobre tabla - 63x73cm", url: "" }]
     },
     {
         id: "chus",
@@ -46,7 +46,7 @@ const artworks = [
         image: "images/Chus.jpeg",
         description: "Óleo sobre lienzo. 114x195cm",
         showInGallery: true,
-        contests: []
+        contests: [{ name: "Óleo sobre lienzo - 114x195cm", url: "" }]
     },
     {
         id: "barcelona-1950",
@@ -57,7 +57,7 @@ const artworks = [
         image: "images/Barcelona_1950.jpeg",
         description: "Óleo sobre lienzo. 73x92cm",
         showInGallery: true,
-        contests: []
+        contests: [{ name: "Óleo sobre lienzo - 73x92cm", url: "" }]
     },
     {
         id: "elena-y-su-circunstancia",
@@ -68,7 +68,7 @@ const artworks = [
         image: "images/Elena_y_su_circunstancia.jpeg",
         description: "Óleo sobre tabla. 62x73cm",
         showInGallery: true,
-        contests: []
+        contests: [{ name: "Óleo sobre tabla - 62x73cm", url: "" }]
     },
     {
         id: "kore",
@@ -90,7 +90,7 @@ const artworks = [
         image: "images/Reflejo_de_un matrimonio.jpeg",
         description: "Óleo sobre lienzo. 81x130cm",
         showInGallery: true,
-        contests: []
+        contests: [{ name: "Óleo sobre lienzo - 81x130cm", url: "" }]
     },
     {
         id: "padre",
@@ -101,7 +101,7 @@ const artworks = [
         image: "images/padre.jpeg",
         description: "Óleo sobre lienzo. 130x81cm",
         showInGallery: true,
-        contests: []
+        contests: [{ name: "Óleo sobre lienzo - 130x81cm", url: "" }]
     },
     {
         id: "calle-las-barcas-valencia",
