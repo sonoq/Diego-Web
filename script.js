@@ -12,7 +12,8 @@ const artworks = [
         dimensions: "111x34x23cm",
         image: "images/Pilar.jpeg",
         description: "Modelado en barro, copia resina acrílica. 111x34x23cm",
-        showInGallery: true
+        showInGallery: true,
+        contests: []
     },
     {
         id: "teruel-1966",
@@ -22,7 +23,8 @@ const artworks = [
         dimensions: "130x195cm",
         image: "images/Teruel_1966.jpeg",
         description: "Óleo sobre lienzo. 130x195cm",
-        showInGallery: true
+        showInGallery: true,
+        contests: []
     },
     {
         id: "malaga-1971",
@@ -32,7 +34,8 @@ const artworks = [
         dimensions: "63x73cm",
         image: "images/malaga_1971.jpeg",
         description: "Óleo sobre tabla. 63x73cm",
-        showInGallery: true
+        showInGallery: true,
+        contests: []
     },
     {
         id: "chus",
@@ -42,7 +45,8 @@ const artworks = [
         dimensions: "114x195cm",
         image: "images/Chus.jpeg",
         description: "Óleo sobre lienzo. 114x195cm",
-        showInGallery: true
+        showInGallery: true,
+        contests: []
     },
     {
         id: "barcelona-1950",
@@ -52,7 +56,8 @@ const artworks = [
         dimensions: "73x92cm",
         image: "images/Barcelona_1950.jpeg",
         description: "Óleo sobre lienzo. 73x92cm",
-        showInGallery: true
+        showInGallery: true,
+        contests: []
     },
     {
         id: "elena-y-su-circunstancia",
@@ -62,7 +67,8 @@ const artworks = [
         dimensions: "62x73cm",
         image: "images/Elena_y_su_circunstancia.jpeg",
         description: "Óleo sobre tabla. 62x73cm",
-        showInGallery: true
+        showInGallery: true,
+        contests: []
     },
     {
         id: "kore",
@@ -72,7 +78,8 @@ const artworks = [
         dimensions: "164x48x30cm",
         image: "images/kore.jpeg",
         description: "Talla en madera policromada. 164x48x30cm",
-        showInGallery: true
+        showInGallery: true,
+        contests: [{ name: "Talla en madera policromada - 164x48x30cm", url: "" }]
     },
     {
         id: "reflejo-de-un-matrimonio",
@@ -82,7 +89,8 @@ const artworks = [
         dimensions: "81x130cm",
         image: "images/Reflejo_de_un matrimonio.jpeg",
         description: "Óleo sobre lienzo. 81x130cm",
-        showInGallery: true
+        showInGallery: true,
+        contests: []
     },
     {
         id: "padre",
@@ -92,7 +100,8 @@ const artworks = [
         dimensions: "130x81cm",
         image: "images/padre.jpeg",
         description: "Óleo sobre lienzo. 130x81cm",
-        showInGallery: true
+        showInGallery: true,
+        contests: []
     },
     {
         id: "calle-las-barcas-valencia",
@@ -102,7 +111,8 @@ const artworks = [
         dimensions: "99x108cm",
         image: "images/CalleLasbarcas_Valencia.jpeg",
         description: "Óleo sobre lienzo. 99x108cm",
-        showInGallery: true
+        showInGallery: true,
+        contests: [{ name: "Óleo sobre lienzo - 99x108cm", url: "" }]
     }
 ];
 
@@ -179,16 +189,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---- Render CV Timeline ---- //
     const cvTimeline = document.getElementById('cv-timeline');
     if (cvTimeline) {
-        // Filter artworks to show in gallery
-        const works = artworks.filter(work => work.showInGallery);
+        // Collect all entries: if showInGallery is true, include it. 
+        // If it has contests, flatten them. If not, include it once with empty contest info.
+        const entries = artworks
+            .filter(work => work.showInGallery)
+            .flatMap(work => {
+                if (!work.contests || work.contests.length === 0) {
+                    return [{ name: "", url: "", work }];
+                }
+                return work.contests.map(c => ({ ...c, work }));
+            });
 
-        const timelineHTML = works.map(work => {
-            const details = `${work.medium} - ${work.dimensions}`;
+        const timelineHTML = entries.map(entry => {
+            const contestInfo = entry.name;
+            const contestDisplay = entry.url
+                ? `<a href="${entry.url}" target="_blank" rel="noopener" class="timeline-link">${contestInfo}</a>`
+                : contestInfo;
+
             return `
                 <div class="timeline-item fade-in">
-                    <div class="timeline-work clickable-work" data-id="${work.id}">"${work.title.toUpperCase()}"</div>
+                    <div class="timeline-work clickable-work" data-id="${entry.work.id}">"${entry.work.title.toUpperCase()}"</div>
                     <div class="timeline-dot"></div>
-                    <div class="timeline-info">${details}</div>
+                    <div class="timeline-info">${contestDisplay}</div>
                 </div>
             `;
         }).join('');
@@ -201,7 +223,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const cvMenu = document.getElementById('cv-menu');
 
     if (cvWrapper && cvImageCol && cvMenu) {
-        const works = artworks.filter(work => work.showInGallery);
+        const entries = artworks
+            .filter(work => work.showInGallery)
+            .flatMap(work => {
+                if (!work.contests || work.contests.length === 0) {
+                    return [{ name: "", url: "", work }];
+                }
+                return work.contests.map(c => ({ ...c, work }));
+            });
 
         let currentIndex = -1;
         let lastMouseX = 0;
@@ -219,35 +248,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Set wrapper height
         const stepHeight = window.innerHeight * 0.5; // 50% of viewport height per entry
-        cvWrapper.style.height = `${(works.length * stepHeight) + 80}px`;
+        cvWrapper.style.height = `${(entries.length * stepHeight) + 80}px`;
 
         // Generate DOM Elements
-        works.forEach((work, index) => {
+        entries.forEach((entry, index) => {
             // Image Wrapper
             const imgDiv = document.createElement('div');
             imgDiv.className = `cv-image-wrapper`;
             imgDiv.id = `img-${index}`;
-            imgDiv.innerHTML = `<img src="${work.image}" alt="${work.title}" loading="${index === 0 ? 'eager' : 'lazy'}">`;
+            imgDiv.innerHTML = `<img src="${entry.work.image}" alt="${entry.work.title}" loading="${index === 0 ? 'eager' : 'lazy'}">`;
             imgDiv.addEventListener('click', () => {
-                openModal(work);
+                openModal(entry.work);
             });
             cvImageCol.appendChild(imgDiv);
 
             // Menu Entry
+            const contestLink = entry.url ? `<a href="${entry.url}" target="_blank" rel="noopener">${entry.name}</a>` : entry.name;
             const textDiv = document.createElement('div');
             textDiv.className = `cv-entry`;
             textDiv.id = `entry-${index}`;
-            
-            const details = `${work.medium} - ${work.dimensions}`;
-            
             textDiv.innerHTML = `
                 <div class="cv-dot"></div>
                 <div class="cv-entry-content">
                     <div class="cv-title-group">
-                        <h2 class="cv-work-title">"${work.title}"</h2>
+                        <h2 class="cv-work-title">"${entry.work.title}"</h2>
                     </div>
                     <div class="cv-details">
-                        <div class="cv-contest">${details}</div>
+                        <div class="cv-contest">${contestLink}</div>
                     </div>
                 </div>
             `;
