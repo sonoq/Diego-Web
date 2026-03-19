@@ -1,5 +1,5 @@
-﻿/* ============================================
-   Diego PeribaÃ±ez Villalba â€” Script
+/* ============================================
+   Diego Peribañez Villalba — Script
    Data + Render + Scroll + Interactive
    ============================================ */
 
@@ -8,78 +8,78 @@ const artworks = [
         id: "pilar",
         title: "Pilar",
         category: "Escultura",
-        medium: "Modelado en barro, copia resina acrÃ­lica",
+        medium: "Modelado en barro, copia resina acrílica",
         tall: 111,
         wide: 34,
         depth: 23,
         image: "images/Pilar.jpeg",
-        description: "Modelado en barro, copia resina acrÃ­lica. 111x34x23cm",
+        description: "Modelado en barro, copia resina acrílica. 111x34x23cm",
         showInGallery: true,
-        contests: [{ name: "Modelado en barro, copia resina acrÃ­lica - 111x34x23cm", url: "" }]
+        contests: [{ name: "Modelado en barro, copia resina acrílica - 111x34x23cm", url: "" }]
     },
     {
         id: "teruel-1966",
         title: "Teruel 1966",
         category: "Pintura",
-        medium: "Ã“leo sobre lienzo",
-        tall: 130,
-        wide: 195,
+        medium: "Óleo sobre lienzo",
+        tall: 195,
+        wide: 130,
         image: "images/Teruel_1966.jpeg",
-        description: "Ã“leo sobre lienzo. 130x195cm",
+        description: "Óleo sobre lienzo. 130x195cm",
         showInGallery: true,
-        contests: [{ name: "Ã“leo sobre lienzo - 130x195cm", url: "" }]
+        contests: [{ name: "Óleo sobre lienzo - 130x195cm", url: "" }]
     },
     {
         id: "malaga-1971",
-        title: "MÃ¡laga 1971",
+        title: "Málaga 1971",
         category: "Pintura",
-        medium: "Ã“leo sobre tabla",
-        tall: 63,
-        wide: 73,
+        medium: "Óleo sobre tabla",
+        tall: 73,
+        wide: 63,
         image: "images/malaga_1971.jpeg",
-        description: "Ã“leo sobre tabla. 63x73cm",
+        description: "Óleo sobre tabla. 63x73cm",
         showInGallery: true,
-        contests: [{ name: "Ã“leo sobre tabla - 63x73cm", url: "" }]
+        contests: [{ name: "Óleo sobre tabla - 63x73cm", url: "" }]
     },
     {
         id: "chus",
         title: "Chus",
         category: "Pintura",
-        medium: "Ã“leo sobre lienzo",
-        tall: 114,
-        wide: 195,
+        medium: "Óleo sobre lienzo",
+        tall: 195,
+        wide: 114,
         image: "images/Chus.jpeg",
-        description: "Ã“leo sobre lienzo. 114x195cm",
+        description: "Óleo sobre lienzo. 114x195cm",
         showInGallery: true,
-        contests: [{ name: "Ã“leo sobre lienzo - 114x195cm", url: "" }]
+        contests: [{ name: "Óleo sobre lienzo - 114x195cm", url: "" }]
     },
     {
         id: "barcelona-1950",
         title: "Barcelona 1950",
         category: "Pintura",
-        medium: "Ã“leo sobre lienzo",
-        tall: 73,
-        wide: 92,
+        medium: "Óleo sobre lienzo",
+        tall: 92,
+        wide: 73,
         image: "images/Barcelona_1950.jpeg",
-        description: "Ã“leo sobre lienzo. 73x92cm",
+        description: "Óleo sobre lienzo. 73x92cm",
         showInGallery: true,
-        contests: [{ name: "Ã“leo sobre lienzo - 73x92cm", url: "" }]
+        contests: [{ name: "Óleo sobre lienzo - 73x92cm", url: "" }]
     },
     {
         id: "elena-y-su-circunstancia",
         title: "Elena y su circunstancia",
         category: "Pintura",
-        medium: "Ã“leo sobre tabla",
-        tall: 62,
-        wide: 73,
+        medium: "Óleo sobre tabla",
+        tall: 73,
+        wide: 62,
         image: "images/Elena_y_su_circunstancia.jpeg",
-        description: "Ã“leo sobre tabla. 62x73cm",
+        description: "Óleo sobre tabla. 62x73cm",
         showInGallery: true,
-        contests: [{ name: "Ã“leo sobre tabla - 62x73cm", url: "" }]
+        contests: [{ name: "Óleo sobre tabla - 62x73cm", url: "" }]
     },
     {
         id: "kore",
-        title: "KorÃ©",
+        title: "Koré",
         category: "Escultura",
         medium: "Talla en madera policromada",
         tall: 164,
@@ -94,37 +94,37 @@ const artworks = [
         id: "reflejo-de-un-matrimonio",
         title: "Reflejo de un matrimonio",
         category: "Pintura",
-        medium: "Ã“leo sobre lienzo",
-        tall: 81,
-        wide: 130,
+        medium: "Óleo sobre lienzo",
+        tall: 130,
+        wide: 81,
         image: "images/Reflejo_de_un matrimonio.jpeg",
-        description: "Ã“leo sobre lienzo. 81x130cm",
+        description: "Óleo sobre lienzo. 81x130cm",
         showInGallery: true,
-        contests: [{ name: "Ã“leo sobre lienzo - 81x130cm", url: "" }]
+        contests: [{ name: "Óleo sobre lienzo - 81x130cm", url: "" }]
     },
     {
         id: "padre",
         title: "Padre",
         category: "Pintura",
-        medium: "Ã“leo sobre lienzo",
-        tall: 130,
-        wide: 81,
+        medium: "Óleo sobre lienzo",
+        tall: 81,
+        wide: 130,
         image: "images/padre.jpeg",
-        description: "Ã“leo sobre lienzo. 130x81cm",
+        description: "Óleo sobre lienzo. 130x81cm",
         showInGallery: true,
-        contests: [{ name: "Ã“leo sobre lienzo - 130x81cm", url: "" }]
+        contests: [{ name: "Óleo sobre lienzo - 130x81cm", url: "" }]
     },
     {
         id: "calle-las-barcas-valencia",
         title: "Calle las barcas, Valencia",
         category: "Pintura",
-        medium: "Ã“leo sobre lienzo",
-        tall: 99,
-        wide: 108,
+        medium: "Óleo sobre lienzo",
+        tall: 108,
+        wide: 99,
         image: "images/CalleLasbarcas_Valencia.jpeg",
-        description: "Ã“leo sobre lienzo. 99x108cm",
+        description: "Óleo sobre lienzo. 99x108cm",
         showInGallery: true,
-        contests: [{ name: "Ã“leo sobre lienzo - 99x108cm", url: "" }]
+        contests: [{ name: "Óleo sobre lienzo - 99x108cm", url: "" }]
     }
 ];
 
@@ -142,20 +142,20 @@ document.addEventListener('DOMContentLoaded', () => {
         modalImg.src = work.image;
 
         let details = work.medium;
-        
+
         // Dynamically build the dimensions string from the new data structure
         let hasDimensions = work.tall && work.wide;
         if (hasDimensions) {
             let dimString = `${work.tall}x${work.wide}`;
             if (work.depth) dimString += `x${work.depth}`; // Add depth if it's a sculpture
             dimString += 'cm';
-            
+
             details += ` - <span class="hoverable-dimensions">${dimString}</span>`;
         }
 
-        captionText.innerHTML = `<span class="modal-title">"${work.title}"</span><br><span class="modal-details">${details}</span>`;
-        document.body.style.overflow = 'hidden'; 
-        
+        captionText.innerHTML = `<span class="modal-title">${work.title}</span><br><span class="modal-details">${details}</span>`;
+        document.body.style.overflow = 'hidden';
+
         // --- Measurement Interaction Logic ---
         const dimSpan = captionText.querySelector('.hoverable-dimensions');
         const wrapper = document.querySelector('.modal-img-wrapper');
@@ -163,9 +163,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const heightLine = document.getElementById('measure-height');
 
         if (dimSpan && wrapper && hasDimensions) {
-            // Swap values to fix inversion: heightLine (vertical) -> wide, widthLine (horizontal) -> tall
-            if (heightLine) heightLine.querySelector('.measure-val').textContent = `${work.wide} cm`;
-            if (widthLine) widthLine.querySelector('.measure-val').textContent = `${work.tall} cm`;
+            // Width line gets wide, height line gets tall
+            if (heightLine) heightLine.querySelector('.measure-val').textContent = `${work.tall} cm`;
+            if (widthLine) widthLine.querySelector('.measure-val').textContent = `${work.wide} cm`;
 
             dimSpan.addEventListener('mouseenter', () => {
                 wrapper.classList.add('show-measures');
@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             return `
                 <div class="timeline-item fade-in">
-                    <div class="timeline-work clickable-work" data-id="${entry.work.id}">"${entry.work.title.toUpperCase()}"</div>
+                    <div class="timeline-work clickable-work" data-id="${entry.work.id}">${entry.work.title.toUpperCase()}</div>
                     <div class="timeline-dot"></div>
                     <div class="timeline-info">${contestDisplay}</div>
                 </div>
@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="cv-dot"></div>
                 <div class="cv-entry-content">
                     <div class="cv-title-group">
-                        <h2 class="cv-work-title">"${entry.work.title}"</h2>
+                        <h2 class="cv-work-title">${entry.work.title}</h2>
                     </div>
                     <div class="cv-details">
                         <div class="cv-contest">${contestLink}</div>
