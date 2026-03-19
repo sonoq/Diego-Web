@@ -362,6 +362,7 @@ a:hover {
     margin-bottom: 18px;
     font-size: 1rem;
     line-height: 1.8;
+    text-align: justify;
 }
 
 .sobre-mi-text p:last-child {
