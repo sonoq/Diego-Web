@@ -105,8 +105,9 @@ a:hover {
 
 .gallery-cta-wrapper {
     display: flex;
-    justify-content: flex-start;
-    margin-bottom: 40px;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
 }
 
 .gallery-cta {
@@ -360,26 +361,16 @@ a:hover {
 
 .sobre-mi-image {
     position: relative;
+    display: flex;
+    justify-content: center;
 }
 
 .sobre-mi-image img {
     width: 100%;
+    max-width: 450px;
     aspect-ratio: 4 / 5;
     object-fit: cover;
     border-radius: var(--radius);
-}
-
-.image-accent {
-    position: absolute;
-    top: -12px;
-    left: -12px;
-    right: 12px;
-    bottom: 12px;
-    border: 1px solid var(--secondary);
-    border-radius: var(--radius);
-    opacity: 0.3;
-    pointer-events: none;
-    z-index: -1;
 }
 
 .sobre-mi-text p {
