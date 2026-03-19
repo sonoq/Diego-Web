@@ -35,7 +35,7 @@ const artworks = [
         category: "Pintura",
         medium: "Óleo sobre tabla",
         dimensions: "63x73cm",
-        image: "images/malaga_1971.jpg",
+        image: "images/malaga_1971.jpeg",
         description: "Óleo sobre tabla. 63x73cm",
         showInGallery: true,
         contests: []
@@ -83,7 +83,7 @@ const artworks = [
         category: "Escultura",
         medium: "Talla en madera policromada",
         dimensions: "164x48x30cm",
-        image: "images/kore.png",
+        image: "images/kore.jpeg",
         description: "Talla en madera policromada. 164x48x30cm",
         showInGallery: true,
         contests: [{ name: "Nominado — Reina Sofía 2024", url: "https://fundacionreinasofia.es/" }]
@@ -95,7 +95,7 @@ const artworks = [
         category: "Pintura",
         medium: "Óleo sobre lienzo",
         dimensions: "81x130cm",
-        image: "images/Reflejo_de_un matrimonio.jpg",
+        image: "images/Reflejo_de_un matrimonio.jpeg",
         description: "Óleo sobre lienzo. 81x130cm",
         showInGallery: true,
         contests: []
@@ -107,7 +107,7 @@ const artworks = [
         category: "Pintura",
         medium: "Óleo sobre lienzo",
         dimensions: "130x81cm",
-        image: "images/padre.jpg",
+        image: "images/padre.jpeg",
         description: "Óleo sobre lienzo. 130x81cm",
         showInGallery: true,
         contests: []
