@@ -1517,3 +1517,128 @@ a:hover {
     transform: translate(0, 0);
 }
 
+
+
+/* ============================================
+   Modal Image Wrapper & Measurement Lines
+   ============================================ */
+.modal-img-wrapper {
+    position: relative;
+    display: inline-block;
+    margin: auto;
+}
+
+/* Modal sizing */
+.modal-content {
+    display: block;
+    max-width: 90vw;
+    max-height: 75vh;
+    border-radius: var(--radius);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    animation: zoomIn 0.3s ease;
+}
+
+/* Interactive caption text */
+.hoverable-dimensions {
+    cursor: crosshair;
+    display: inline-block;
+    color: var(--secondary);
+    transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.hoverable-dimensions:hover {
+    color: #FFF;
+    text-shadow: 0 0 10px rgba(226, 194, 117, 0.8);
+    transform: scale(1.05);
+}
+
+/* Base styles for the measurement wrappers */
+.measure-line {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--secondary);
+    z-index: 2010;
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* The text value itself */
+.measure-val {
+    background: transparent;
+    border: none;
+    padding: 0;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ----- Bottom Measure (Width) ----- */
+.bottom-measure {
+    bottom: -35px;
+    left: 0;
+    right: 0;
+    height: 8px; /* Controls the height of the end caps */
+    transform: translateY(-10px);
+}
+
+.bottom-measure::before, 
+.bottom-measure::after {
+    content: '';
+    flex: 1;
+    height: 100%;
+    border-bottom: 1px solid var(--secondary);
+}
+
+.bottom-measure::before {
+    border-left: 1px solid var(--secondary);
+    margin-right: 15px; /* Space between line and text */
+}
+
+.bottom-measure::after {
+    border-right: 1px solid var(--secondary);
+    margin-left: 15px; /* Space between line and text */
+}
+
+/* ----- Right Measure (Height) ----- */
+.right-measure {
+    right: -40px;
+    top: 0;
+    bottom: 0;
+    width: 8px; /* Controls the width of the end caps */
+    flex-direction: column;
+    transform: translateX(-10px);
+}
+
+.right-measure::before, 
+.right-measure::after {
+    content: '';
+    flex: 1;
+    width: 100%;
+    border-right: 1px solid var(--secondary);
+}
+
+.right-measure::before {
+    border-top: 1px solid var(--secondary);
+    margin-bottom: 30px; /* Extra space to accommodate rotated text */
+}
+
+.right-measure::after {
+    border-bottom: 1px solid var(--secondary);
+    margin-top: 30px; /* Extra space to accommodate rotated text */
+}
+
+.right-measure .measure-val {
+    transform: rotate(-90deg);
+}
+
+/* ----- Active State (when hovered) ----- */
+.modal-img-wrapper.show-measures .measure-line {
+    opacity: 1;
+    transform: translate(0, 0); /* Lines snap nicely to final positions */
+}
+
