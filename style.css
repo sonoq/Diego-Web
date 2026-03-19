@@ -103,6 +103,31 @@ a:hover {
     margin-bottom: 50px;
 }
 
+.gallery-cta-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 40px;
+}
+
+.gallery-cta {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-primary);
+    border: 1px solid var(--divider);
+    padding: 12px 30px;
+    border-radius: var(--radius);
+    transition: all 0.3s ease;
+}
+
+.gallery-cta:hover {
+    border-color: var(--secondary);
+    color: var(--secondary);
+    transform: translateY(-2px);
+}
+
 /* ============================================
    Fade-in Animation
    ============================================ */
@@ -568,6 +593,37 @@ a:hover {
 .footer-copy {
     font-size: 0.8rem;
     color: var(--text-secondary);
+}
+
+/* ============================================
+   Construction Page
+   ============================================ */
+
+.construction-page {
+    background: var(--background);
+}
+
+.construction-container {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.construction-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 4rem);
+    letter-spacing: 0.1em;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
+
+.construction-text {
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 1.1rem;
 }
 
 /* ============================================
