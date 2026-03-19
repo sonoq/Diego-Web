@@ -7,122 +7,102 @@ const artworks = [
     {
         id: "pilar",
         title: "Pilar",
-        year: 2021,
         category: "Escultura",
         medium: "Modelado en barro, copia resina acrílica",
         dimensions: "111x34x23cm",
         image: "images/Pilar.jpeg",
         description: "Modelado en barro, copia resina acrílica. 111x34x23cm",
-        showInGallery: true,
-        contests: []
+        showInGallery: true
     },
     {
         id: "teruel-1966",
         title: "Teruel 1966",
-        year: 2022,
         category: "Pintura",
         medium: "Óleo sobre lienzo",
         dimensions: "130x195cm",
         image: "images/Teruel_1966.jpeg",
         description: "Óleo sobre lienzo. 130x195cm",
-        showInGallery: true,
-        contests: []
+        showInGallery: true
     },
     {
         id: "malaga-1971",
         title: "Málaga 1971",
-        year: 2023,
         category: "Pintura",
         medium: "Óleo sobre tabla",
         dimensions: "63x73cm",
         image: "images/malaga_1971.jpeg",
         description: "Óleo sobre tabla. 63x73cm",
-        showInGallery: true,
-        contests: []
+        showInGallery: true
     },
     {
         id: "chus",
         title: "Chus",
-        year: 2020,
         category: "Pintura",
         medium: "Óleo sobre lienzo",
         dimensions: "114x195cm",
         image: "images/Chus.jpeg",
         description: "Óleo sobre lienzo. 114x195cm",
-        showInGallery: true,
-        contests: []
+        showInGallery: true
     },
     {
         id: "barcelona-1950",
         title: "Barcelona 1950",
-        year: 2021,
         category: "Pintura",
         medium: "Óleo sobre lienzo",
         dimensions: "73x92cm",
         image: "images/Barcelona_1950.jpeg",
         description: "Óleo sobre lienzo. 73x92cm",
-        showInGallery: true,
-        contests: []
+        showInGallery: true
     },
     {
         id: "elena-y-su-circunstancia",
         title: "Elena y su circunstancia",
-        year: 2024,
         category: "Pintura",
         medium: "Óleo sobre tabla",
         dimensions: "62x73cm",
         image: "images/Elena_y_su_circunstancia.jpeg",
         description: "Óleo sobre tabla. 62x73cm",
-        showInGallery: true,
-        contests: []
+        showInGallery: true
     },
     {
         id: "kore",
         title: "Koré",
-        year: 2024,
         category: "Escultura",
         medium: "Talla en madera policromada",
         dimensions: "164x48x30cm",
         image: "images/kore.jpeg",
         description: "Talla en madera policromada. 164x48x30cm",
-        showInGallery: true,
-        contests: [{ name: "Nominado — Reina Sofía 2024", url: "https://fundacionreinasofia.es/" }]
+        showInGallery: true
     },
     {
         id: "reflejo-de-un-matrimonio",
         title: "Reflejo de un matrimonio",
-        year: 2023,
         category: "Pintura",
         medium: "Óleo sobre lienzo",
         dimensions: "81x130cm",
         image: "images/Reflejo_de_un matrimonio.jpeg",
         description: "Óleo sobre lienzo. 81x130cm",
-        showInGallery: true,
-        contests: []
+        showInGallery: true
     },
     {
         id: "padre",
         title: "Padre",
-        year: 2022,
         category: "Pintura",
         medium: "Óleo sobre lienzo",
         dimensions: "130x81cm",
         image: "images/padre.jpeg",
         description: "Óleo sobre lienzo. 130x81cm",
-        showInGallery: true,
-        contests: []
+        showInGallery: true
     },
     {
         id: "calle-las-barcas-valencia",
         title: "Calle las barcas, Valencia",
-        year: 2024,
         category: "Pintura",
         medium: "Óleo sobre lienzo",
         dimensions: "99x108cm",
         image: "images/CalleLasbarcas_Valencia.jpeg",
         description: "Óleo sobre lienzo. 99x108cm",
-        showInGallery: true,
-        contests: [{ name: "Seleccionado — Reina Sofía", url: "https://fundacionreinasofia.es/" }]
+        showInGallery: true
     }
 ];
 
@@ -138,10 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.style.display = "flex";
         modal.classList.add('show');
         modalImg.src = work.image;
-        
+
         let details = work.medium;
         if (work.dimensions) details += ` - ${work.dimensions}`;
-        
+
         captionText.innerHTML = `<span class="modal-title">"${work.title}"</span><br><span class="modal-details">${details}</span>`;
         document.body.style.overflow = 'hidden'; // Prevent background scroll
     };
@@ -199,23 +179,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---- Render CV Timeline ---- //
     const cvTimeline = document.getElementById('cv-timeline');
     if (cvTimeline) {
-        // Collect all contest entries and flatten them
-        const entries = artworks
-            .filter(work => work.contests && work.contests.length > 0)
-            .flatMap(work => work.contests.map(c => ({ ...c, work })))
-            .sort((a, b) => b.work.year - a.work.year); // Descending by year
+        // Filter artworks to show in gallery
+        const works = artworks.filter(work => work.showInGallery);
 
-        const timelineHTML = entries.map(entry => {
-            const contestInfo = `${entry.name} - ${entry.work.year}`;
-            const contestDisplay = entry.url
-                ? `<a href="${entry.url}" target="_blank" rel="noopener" class="timeline-link">${contestInfo}</a>`
-                : contestInfo;
-
+        const timelineHTML = works.map(work => {
+            const details = `${work.medium} - ${work.dimensions}`;
             return `
                 <div class="timeline-item fade-in">
-                    <div class="timeline-work clickable-work" data-id="${entry.work.id}">"${entry.work.title.toUpperCase()}"</div>
+                    <div class="timeline-work clickable-work" data-id="${work.id}">"${work.title.toUpperCase()}"</div>
                     <div class="timeline-dot"></div>
-                    <div class="timeline-info">${contestDisplay}</div>
+                    <div class="timeline-info">${details}</div>
                 </div>
             `;
         }).join('');
@@ -228,10 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cvMenu = document.getElementById('cv-menu');
 
     if (cvWrapper && cvImageCol && cvMenu) {
-        const entries = artworks
-            .filter(work => work.contests && work.contests.length > 0)
-            .flatMap(work => work.contests.map(c => ({ ...c, work })))
-            .sort((a, b) => b.work.year - a.work.year);
+        const works = artworks.filter(work => work.showInGallery);
 
         let currentIndex = -1;
         let lastMouseX = 0;
@@ -248,39 +218,41 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // Set wrapper height
-        cvWrapper.style.height = `calc(${(entries.length) * 100}vh + 80px)`;
+        const stepHeight = window.innerHeight * 0.5; // 50% of viewport height per entry
+        cvWrapper.style.height = `${(works.length * stepHeight) + 80}px`;
 
         // Generate DOM Elements
-        entries.forEach((entry, index) => {
+        works.forEach((work, index) => {
             // Image Wrapper
             const imgDiv = document.createElement('div');
             imgDiv.className = `cv-image-wrapper`;
             imgDiv.id = `img-${index}`;
-            imgDiv.innerHTML = `<img src="${entry.work.image}" alt="${entry.work.title}" loading="${index === 0 ? 'eager' : 'lazy'}">`;
+            imgDiv.innerHTML = `<img src="${work.image}" alt="${work.title}" loading="${index === 0 ? 'eager' : 'lazy'}">`;
             imgDiv.addEventListener('click', () => {
-                openModal(entry.work);
+                openModal(work);
             });
             cvImageCol.appendChild(imgDiv);
 
             // Menu Entry
-            const contestLink = entry.url ? `<a href="${entry.url}" target="_blank" rel="noopener">${entry.name}</a>` : entry.name;
             const textDiv = document.createElement('div');
             textDiv.className = `cv-entry`;
             textDiv.id = `entry-${index}`;
+            
+            const details = `${work.medium} - ${work.dimensions}`;
+            
             textDiv.innerHTML = `
                 <div class="cv-dot"></div>
                 <div class="cv-entry-content">
                     <div class="cv-title-group">
-                        <h2 class="cv-work-title">"${entry.work.title}"</h2>
-                        <span class="cv-year-small">(${entry.work.year})</span>
+                        <h2 class="cv-work-title">"${work.title}"</h2>
                     </div>
                     <div class="cv-details">
-                        <div class="cv-contest">${contestLink}</div>
+                        <div class="cv-contest">${details}</div>
                     </div>
                 </div>
             `;
             textDiv.addEventListener('click', () => {
-                const targetScroll = cvWrapper.offsetTop + (index * window.innerHeight);
+                const targetScroll = cvWrapper.offsetTop + (index * stepHeight);
                 window.scrollTo({ top: targetScroll, behavior: 'instant' });
             });
             cvMenu.appendChild(textDiv);
@@ -328,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let scrolledInside = -rect.top + 80;
             if (scrolledInside < 0) scrolledInside = 0;
 
-            let newIndex = Math.round(scrolledInside / window.innerHeight);
+            let newIndex = Math.round(scrolledInside / stepHeight);
             newIndex = Math.max(0, Math.min(entries.length - 1, newIndex));
             updateCVUI(newIndex);
         }, { passive: true });
