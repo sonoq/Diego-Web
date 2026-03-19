@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // Set wrapper height
-        const stepHeight = window.innerHeight * 0.5; // 50% of viewport height per entry
+        const stepHeight = window.innerHeight; // 100% of viewport height per entry
         cvWrapper.style.height = `${(entries.length * stepHeight) + 80}px`;
 
         // Generate DOM Elements
