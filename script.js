@@ -156,6 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
         captionText.innerHTML = `<span class="modal-title">${work.title}</span><br><span class="modal-details">${details}</span>`;
         document.body.style.overflow = 'hidden';
 
+        // Hide floating back button
+        document.querySelectorAll('.floating-back-btn').forEach(btn => btn.classList.add('hidden'));
+
         // --- Measurement Interaction Logic ---
         const dimSpan = captionText.querySelector('.hoverable-dimensions');
         const wrapper = document.querySelector('.modal-img-wrapper');
@@ -181,6 +184,9 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.style.display = "none";
         modal.classList.remove('show');
         document.body.style.overflow = 'auto'; // Restore scroll
+
+        // Show floating back button
+        document.querySelectorAll('.floating-back-btn').forEach(btn => btn.classList.remove('hidden'));
     };
 
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
@@ -257,157 +263,153 @@ document.addEventListener('DOMContentLoaded', () => {
         cvTimeline.innerHTML = `<div class="timeline-line"></div>${timelineHTML}`;
     }
 
-    // ---- CV Scrollytelling Implementation ---- //
-    const cvWrapper = document.getElementById('cv-wrapper');
-    const cvImageCol = document.getElementById('cv-image-col');
-    const cvMenu = document.getElementById('cv-menu');
+    // ---- Scroll Carousel (obra-sel.html) ---- //
+    const mainContainer = document.getElementById('main-container');
+    const thumbList = document.getElementById('thumb-list');
 
-    if (cvWrapper && cvImageCol && cvMenu) {
-        const entries = artworks
-            .filter(work => work.showInGallery)
-            .flatMap(work => {
-                if (!work.contests || work.contests.length === 0) {
-                    return [{ name: "", url: "", work }];
-                }
-                return work.contests.map(c => ({ ...c, work }));
-            });
+    if (mainContainer && thumbList) {
+        const galleryWorks = artworks.filter(w => w.showInGallery);
+        const N = galleryWorks.length;
+        const THUMB_HEIGHT = 60;
+        const sections = [];
 
-        let currentIndex = -1;
-        let lastMouseX = 0;
-        let lastMouseY = 0;
-        let isMouseOverCol = false;
+        galleryWorks.forEach((work, i) => {
+            const section = document.createElement('div');
+            section.className = 'main-image-section';
 
-        const apply3DHover = (el, x, y) => {
-            if (!el) return;
-            const colRect = cvImageCol.getBoundingClientRect();
-            // Standardize coordinates relative to the container
-            const rotateX = ((y - (colRect.height / 2)) / (colRect.height / 2)) * -12;
-            const rotateY = ((x - (colRect.width / 2)) / (colRect.width / 2)) * 12;
-            el.style.transform = `scale(1.05) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        };
+            let textSizeClass = 'large-text';
+            if (work.title.length > 20) textSizeClass = 'small-text';
+            else if (work.title.length > 12) textSizeClass = 'medium-text';
 
-        // Set wrapper height
-        const stepHeight = window.innerHeight; // 100% of viewport height per entry
-        cvWrapper.style.height = `${(entries.length * stepHeight) + 80}px`;
-
-        // Generate DOM Elements
-        entries.forEach((entry, index) => {
-            // Image Wrapper
-            const imgDiv = document.createElement('div');
-            imgDiv.className = `cv-image-wrapper`;
-            imgDiv.id = `img-${index}`;
-            imgDiv.innerHTML = `<img src="${entry.work.image}" alt="${entry.work.title}" loading="${index === 0 ? 'eager' : 'lazy'}">`;
-            imgDiv.addEventListener('click', () => {
-                openModal(entry.work);
-            });
-            cvImageCol.appendChild(imgDiv);
-
-            // Menu Entry
-            const contestLink = entry.url ? `<a href="${entry.url}" target="_blank" rel="noopener">${entry.name}</a>` : entry.name;
-            const textDiv = document.createElement('div');
-            textDiv.className = `cv-entry`;
-            textDiv.id = `entry-${index}`;
-            textDiv.innerHTML = `
-                <div class="cv-dot"></div>
-                <div class="cv-entry-content">
-                    <div class="cv-title-group">
-                        <h2 class="cv-work-title">${entry.work.title}</h2>
+            section.innerHTML = `
+                <div class="main-image-wrapper">
+                    <div class="collage-item" data-id="${work.id}">
+                        <img src="${work.image}" alt="${work.title}" loading="${i < 3 ? 'eager' : 'lazy'}">
+                        <div class="collage-overlay">
+                            <div class="text-mask"><span class="${textSizeClass}">${work.title}</span></div>
+                            <div class="text-mask"><span class="style-text">${work.medium}</span></div>
+                        </div>
                     </div>
-                    <div class="cv-details">
-                        <div class="cv-contest">${contestLink}</div>
-                    </div>
-                </div>
-            `;
-            textDiv.addEventListener('click', () => {
-                const targetScroll = cvWrapper.offsetTop + (index * stepHeight);
-                window.scrollTo({ top: targetScroll, behavior: 'instant' });
-            });
-            cvMenu.appendChild(textDiv);
+                </div>`;
+            mainContainer.appendChild(section);
+            sections.push(section);
+
+            // Sidebar thumbnail
+            const thumbContainer = document.createElement('div');
+            thumbContainer.className = 'sidebar-thumb-container';
+            thumbContainer.onclick = () => {
+                // Scroll to exact offset of this section
+                mainContainer.scrollTo({
+                    top: section.offsetTop,
+                    behavior: 'smooth'
+                });
+            };
+
+            const thumb = document.createElement('img');
+            thumb.className = 'sidebar-thumb';
+            thumb.src = work.image;
+            thumb.alt = work.title;
+            thumb.loading = 'lazy';
+
+            thumbContainer.appendChild(thumb);
+            thumbList.appendChild(thumbContainer);
         });
 
-        const updateCVUI = (index) => {
-            if (index === currentIndex) return;
-            currentIndex = index;
+        const thumbs = document.querySelectorAll('.sidebar-thumb');
+        const thumbHovered = new Array(galleryWorks.length).fill(false);
 
-            document.querySelectorAll('.cv-entry').forEach((el, i) => el.classList.toggle('active', i === index));
-            document.querySelectorAll('.cv-image-wrapper').forEach((el, i) => {
-                el.classList.toggle('active', i === index);
-                if (i !== index) {
-                    el.style.transform = '';
-                    el.style.transition = '';
-                }
+        // Hover: colorize thumbnail on hover (no scale change)
+        document.querySelectorAll('.sidebar-thumb-container').forEach((container, i) => {
+            container.addEventListener('mouseenter', () => {
+                thumbHovered[i] = true;
+                thumbs[i].style.filter = 'grayscale(0%)';
+                thumbs[i].style.opacity = 1;
             });
+            container.addEventListener('mouseleave', () => {
+                thumbHovered[i] = false;
+                // Let next scroll update restore the correct style
+                updateCarouselEffects();
+            });
+        });
 
-            const activeEntry = document.getElementById(`entry-${index}`);
-            if (activeEntry) {
-                const textCol = document.getElementById('cv-text-col');
-                const colHeight = textCol.clientHeight;
+        function getScrollIndex() {
+            const scrollTop = mainContainer.scrollTop;
+            const viewportH = mainContainer.clientHeight;
 
-                // Calculate position to center the entry ANCHOR (title line)
-                // We use 38px as the fixed anchor point (matches CSS dot position)
-                const anchorPoint = activeEntry.offsetTop + 38;
-                const translateY = (colHeight / 2) - anchorPoint;
-
-                cvMenu.style.transform = `translateY(${translateY}px)`;
-
-                // RE-TRIGGER HOVER if mouse is inside
-                if (isMouseOverCol) {
-                    const newActive = document.querySelector('.cv-image-wrapper.active');
-                    if (newActive) {
-                        // Apply with a slight transition to avoid jumps during scroll
-                        newActive.style.transition = 'transform 0.4s ease-out';
-                        apply3DHover(newActive, lastMouseX, lastMouseY);
-                    }
+            // Simple: find which section the scroll position maps to
+            // Each section starts at its offsetTop; we measure progress
+            // from one section's top to the next section's top
+            for (let i = sections.length - 1; i >= 0; i--) {
+                const secTop = sections[i].offsetTop;
+                if (scrollTop >= secTop || i === 0) {
+                    if (i === sections.length - 1) return i;
+                    const nextTop = sections[i + 1].offsetTop;
+                    const span = nextTop - secTop;
+                    const progress = (scrollTop - secTop) / span;
+                    return i + Math.min(1, Math.max(0, progress));
                 }
             }
-        };
-
-        window.addEventListener('scroll', () => {
-            const rect = cvWrapper.getBoundingClientRect();
-            let scrolledInside = -rect.top + 80;
-            if (scrolledInside < 0) scrolledInside = 0;
-
-            let newIndex = Math.round(scrolledInside / stepHeight);
-            newIndex = Math.max(0, Math.min(entries.length - 1, newIndex));
-            updateCVUI(newIndex);
-        }, { passive: true });
-
-        // 3D Hover Effect
-        if (window.innerWidth > 968) {
-            let hoverTimeout;
-            cvImageCol.addEventListener('mouseenter', () => {
-                isMouseOverCol = true;
-                const active = document.querySelector('.cv-image-wrapper.active');
-                if (!active) return;
-                active.style.transition = 'transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)';
-                clearTimeout(hoverTimeout);
-                hoverTimeout = setTimeout(() => {
-                    const activeNow = document.querySelector('.cv-image-wrapper.active');
-                    if (activeNow) activeNow.style.transition = 'transform 0.15s ease-out';
-                }, 800);
-            });
-
-            cvImageCol.addEventListener('mousemove', (e) => {
-                const colRect = cvImageCol.getBoundingClientRect();
-                lastMouseX = e.clientX - colRect.left;
-                lastMouseY = e.clientY - colRect.top;
-
-                const active = document.querySelector('.cv-image-wrapper.active');
-                if (!active) return;
-                apply3DHover(active, lastMouseX, lastMouseY);
-            });
-
-            cvImageCol.addEventListener('mouseleave', () => {
-                isMouseOverCol = false;
-                const active = document.querySelector('.cv-image-wrapper.active');
-                if (!active) return;
-                active.style.transition = 'transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)';
-                active.style.transform = `scale(1) rotateX(0deg) rotateY(0deg)`;
-            });
+            return 0;
         }
 
-        // Initial trigger
-        window.dispatchEvent(new Event('scroll'));
+        function updateCarouselEffects() {
+            const scrollIndex = getScrollIndex();
+            const viewportH = mainContainer.clientHeight;
+
+            // Visual effects on thumbnails — use actual dimensions for layout push
+            const thumbContainers = document.querySelectorAll('.sidebar-thumb-container');
+
+            thumbs.forEach((thumb, i) => {
+                const distance = Math.abs(i - scrollIndex);
+                let grayscale = 100;
+                let opacity = 1;
+
+                // Size interpolation: base 60×79, active +25% → 75×99
+                const minW = 60, maxW = 75;
+                const minH = 79, maxH = 99;
+                let w = minW, h = minH;
+
+                if (distance < 1) {
+                    const progress = 1 - distance;
+                    w = minW + ((maxW - minW) * progress);
+                    h = minH + ((maxH - minH) * progress);
+                    grayscale = 100 - (100 * progress);
+                }
+
+                thumb.style.width = `${w}px`;
+                thumb.style.height = `${h}px`;
+
+                // Don't override filter if hovered
+                if (!thumbHovered[i]) {
+                    thumb.style.filter = `grayscale(${grayscale}%)`;
+                    thumb.style.opacity = opacity;
+                }
+
+                // Container height matches thumb + small padding
+                const containerH = h + 6;
+                thumbContainers[i].style.height = `${containerH}px`;
+            });
+
+            // Reposition thumbnail list so active thumb is centered
+            let activeOffset = 0;
+            for (let i = 0; i < Math.floor(scrollIndex); i++) {
+                activeOffset += parseFloat(thumbContainers[i].style.height);
+            }
+            const frac = scrollIndex - Math.floor(scrollIndex);
+            const currentContainerH = parseFloat(thumbContainers[Math.floor(scrollIndex)]?.style.height || 48);
+            activeOffset += frac * currentContainerH + currentContainerH / 2;
+
+            const listOffset = (viewportH / 2) - activeOffset;
+            thumbList.style.transform = `translateY(${listOffset}px)`;
+        }
+
+        mainContainer.addEventListener('scroll', updateCarouselEffects);
+        window.addEventListener('resize', updateCarouselEffects);
+
+        // Initial update
+        requestAnimationFrame(() => {
+            updateCarouselEffects();
+        });
     }
 
     // ---- Fade-in on scroll (IntersectionObserver) ---- //
@@ -431,17 +433,42 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeElements.forEach(el => observer.observe(el));
 
 
-    // ---- Navbar background on scroll ---- //
+    // ---- Navbar background and Hero Parallax on scroll ---- //
     const nav = document.getElementById('main-nav');
     const hero = document.getElementById('hero');
+    const heroContent = document.querySelector('.hero-content');
+    const heroTint = document.querySelector('.hero-scroll-tint');
 
     const handleScroll = () => {
-        const heroHeight = hero ? hero.offsetHeight : 60;
+        const scrollY = window.scrollY;
+        const heroHeight = hero ? hero.offsetHeight : window.innerHeight;
+        
         // Add scrolled class after passing hero section (minus a small offset)
-        if (window.scrollY > (heroHeight - 80)) {
+        if (scrollY > (heroHeight - 80)) {
             nav.classList.add('scrolled');
         } else {
             nav.classList.remove('scrolled');
+        }
+
+        // Hero Parallax Effect
+        if (heroContent && heroTint) {
+            // Disable CSS transitions on scroll so it updates instantly without lag/scaling issues
+            heroContent.style.transition = 'none';
+
+            // Progress from 0 (top) to 1 (bottom of hero)
+            let progress = scrollY / heroHeight;
+            progress = Math.max(0, Math.min(1, progress));
+            
+            // Fade out the text (fully transparent at ~66% scrolled)
+            const textOpacity = 1 - (progress * 1.5);
+            heroContent.style.opacity = Math.max(0, textOpacity);
+            
+            // Optional slight parallax shift upwards for text
+            heroContent.style.transform = `translateY(${progress * -20}px)`;
+
+            // Fade in the black tint (caps at 0.85 opacity max for deep shadow)
+            const tintOpacity = progress * 0.85;
+            heroTint.style.opacity = tintOpacity;
         }
     };
 
@@ -489,8 +516,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    // (Modal logic moved to top of DOMContentLoaded)
 
 });
 

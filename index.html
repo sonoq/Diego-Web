@@ -16,7 +16,7 @@
     <meta property="og:title" content="Diego Peribañez Villalba — Escultor y Pintor">
     <meta property="og:description"
         content="Página oficial de Diego Peribañez Villalba, escultor y pintor figurativo. Explora su trayectoria, obras en madera policromada y óleo.">
-    <meta property="og:image" content="https://diegoperibanez.es/images/portrait.png">
+    <meta property="og:image" content="https://diegoperibanez.es/images/portrait.jpg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
@@ -24,7 +24,7 @@
     <meta property="twitter:title" content="Diego Peribañez Villalba — Escultor y Pintor">
     <meta property="twitter:description"
         content="Página oficial de Diego Peribañez Villalba, escultor y pintor figurativo. Explora su trayectoria, obras en madera policromada y óleo.">
-    <meta property="twitter:image" content="https://diegoperibanez.es/images/portrait.png">
+    <meta property="twitter:image" content="https://diegoperibanez.es/images/portrait.jpg">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://diegoperibanez.es/" />
@@ -35,11 +35,10 @@
     <link rel="icon" type="image/png" href="images/dp_logo.png">
     <link rel="apple-touch-icon" href="images/dp_logo.png">
 
-    <!-- Fonts and CSS -->
+    <!-- Fonts: Instrument Serif (serif/classic) + Inter (sans/modern) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
@@ -50,7 +49,7 @@
       "@type": "Person",
       "name": "Diego Peribañez Villalba",
       "url": "https://diegoperibanez.es/",
-      "image": "https://diegoperibanez.es/images/portrait_new.jpg",
+      "image": "https://diegoperibanez.es/images/portrait.jpg",
       "jobTitle": "Escultor y Pintor Figurativo",
       "birthPlace": {
         "@type": "Place",
@@ -66,15 +65,16 @@
     </script>
 </head>
 
-<body>
+<body class="home-page">
 
-    <!-- Navigation -->
+    <!-- Navigation — The Minimalist Bar -->
     <nav id="main-nav">
         <div class="nav-inner">
-            <a href="#" class="nav-logo">DIEGO PERIBAÑEZ</a>
+            <a href="#" class="nav-logo">DIEGO PERIBÁÑEZ</a>
             <ul class="nav-links">
-                <li><a href="#galeria">Obra</a></li>
-                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="obra-sel.html">OBRA</a></li>
+                <li><a href="cv.html">C.V.</a></li>
+                <li><a href="#contacto">CONTACTO</a></li>
             </ul>
             <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menú">
                 <span></span>
@@ -84,22 +84,21 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section — Type as Hero -->
     <header id="hero" class="hero">
         <div class="hero-bg">
-            <img src="images/portrait.png"
+            <img src="images/portrait.jpg"
                 alt="Diego Peribañez muestra a Sofía de Grecia su cuadro Calle las Barcas, seleccionado por el Premio Reina Sofía"
                 loading="eager">
             <div class="hero-overlay"></div>
+            <div class="hero-scroll-tint"></div>
         </div>
         <div class="hero-content fade-in">
-            <p class="hero-subtitle">Escultor · Pintor Figurativo</p>
-            <h1 class="hero-title">Diego<br>Peribañez</h1>
-            <div class="hero-line"></div>
-            <p class="hero-tagline">Del plano al volumen, de la madera al alma</p>
-            <a href="#galeria" class="hero-cta">Ver Obra</a>
+            <h1 class="hero-title">DIEGO PERIBÁÑEZ</h1>
+            <p class="hero-label">ESCULTOR · PINTOR FIGURATIVO</p>
         </div>
     </header>
+    <div class="hero-spacer"></div>
 
     <!-- Sobre mí -->
     <section id="sobre-mi" class="section sobre-mi">
@@ -109,14 +108,15 @@
                     <div class="collage-item" data-id="reflejo-de-un-matrimonio">
                         <img src="images/Reflejo_de_un matrimonio.jpeg" alt="Obra: Reflejo de un matrimonio — Diego Peribáñez">
                         <div class="collage-overlay">
-                            <span class="medium-text">Reflejo de un matrimonio</span>
+                            <div class="text-mask"><span class="medium-text">Reflejo de un matrimonio</span></div>
+                            <div class="text-mask"><span class="style-text">Óleo sobre lienzo</span></div>
                         </div>
                     </div>
                 </div>
                 <div class="sobre-mi-text fade-in">
-                    <h2 class="section-title">Sobre mí</h2>
-                    <div class="title-divider"></div>
-                    <p>
+                    <span class="section-label">SOBRE MÍ</span>
+                    <h2 class="section-title"><span class="serif">Trayectoria</span><br>Profesional</h2>
+                    <p class="body-serif">
                         Soy Diego Peribáñez Villalba, escultor y pintor figurativo. Nacido en Teruel y actualmente
                         afincado en Valencia, mi trayectoria artística nació de una reinvención personal. Tras formarme
                         en derecho y desarrollar una carrera profesional al margen del mundo del arte, un punto de
@@ -125,14 +125,24 @@
                     </p>
                 </div>
             </div>
+
+            <div class="sobre-mi-cta-wrapper fade-in" style="display: flex; justify-content: center; margin-top: 80px;">
+                <a href="cv.html" class="btn-lined">
+                    <span class="btn-lined-top"></span>
+                    <span class="btn-lined-text">
+                        <span class="btn-letter" data-char="V" style="--i:0"><span>V</span></span><span class="btn-letter" data-char="E" style="--i:1"><span>E</span></span><span class="btn-letter" data-char="R" style="--i:2"><span>R</span></span><span class="btn-letter btn-space" style="--i:3">&nbsp;</span><span class="btn-letter" data-char="C" style="--i:4"><span>C</span></span><span class="btn-letter" data-char="." style="--i:5"><span>.</span></span><span class="btn-letter" data-char="V" style="--i:6"><span>V</span></span><span class="btn-letter" data-char="." style="--i:7"><span>.</span></span>
+                    </span>
+                    <span class="btn-lined-bottom"></span>
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- Galería -->
+    <!-- Galería — Obra Seleccionada -->
     <section id="galeria" class="section galeria">
         <div class="container">
-            <h2 class="section-title fade-in">Obra Seleccionada</h2>
-            <div class="title-divider fade-in"></div>
+            <span class="section-label fade-in">GALERÍA</span>
+            <h2 class="section-title fade-in"><span class="serif">Obra</span> Seleccionada</h2>
 
             <!-- Collage de obra -->
             <div class="gallery-collage fade-in">
@@ -140,13 +150,15 @@
                     <div class="collage-item small" data-id="padre">
                         <img src="images/padre.jpeg" alt="Obra: Padre — Diego Peribáñez" loading="lazy">
                         <div class="collage-overlay">
-                            <span class="medium-text">Padre</span>
+                            <div class="text-mask"><span class="medium-text">Padre</span></div>
+                            <div class="text-mask"><span class="style-text">Óleo sobre lienzo</span></div>
                         </div>
                     </div>
                     <div class="collage-item small" data-id="calle-las-barcas-valencia">
                         <img src="images/CalleLasbarcas_Valencia.jpeg" alt="Obra: Calle las barcas, Valencia — Diego Peribáñez" loading="lazy">
                         <div class="collage-overlay">
-                            <span class="small-text">Calle las barcas, Valencia</span>
+                            <div class="text-mask"><span class="small-text">Calle las barcas, Valencia</span></div>
+                            <div class="text-mask"><span class="style-text">Óleo sobre lienzo</span></div>
                         </div>
                     </div>
                 </div>
@@ -154,14 +166,21 @@
                     <div class="collage-item large" data-id="malaga-1971">
                         <img src="images/malaga_1971.jpeg" alt="Obra: Málaga 1971 — Diego Peribáñez" loading="lazy">
                         <div class="collage-overlay">
-                            <span class="large-text">Málaga 1971</span>
+                            <div class="text-mask"><span class="large-text">Málaga 1971</span></div>
+                            <div class="text-mask"><span class="style-text">Óleo sobre tabla</span></div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="gallery-cta-wrapper fade-in">
-                <a href="obra-sel.html" class="gallery-cta">VER MÁS</a>
+                <a href="obra-sel.html" class="btn-lined">
+                    <span class="btn-lined-top"></span>
+                    <span class="btn-lined-text">
+                        <span class="btn-letter" data-char="V" style="--i:0"><span>V</span></span><span class="btn-letter" data-char="E" style="--i:1"><span>E</span></span><span class="btn-letter" data-char="R" style="--i:2"><span>R</span></span><span class="btn-letter btn-space" style="--i:3">&nbsp;</span><span class="btn-letter" data-char="M" style="--i:4"><span>M</span></span><span class="btn-letter" data-char="Á" style="--i:5"><span>Á</span></span><span class="btn-letter" data-char="S" style="--i:6"><span>S</span></span>
+                    </span>
+                    <span class="btn-lined-bottom"></span>
+                </a>
             </div>
         </div>
     </section>
@@ -169,19 +188,19 @@
     <!-- Contacto -->
     <section id="contacto" class="section contacto">
         <div class="container">
-            <h2 class="section-title fade-in">Contacto</h2>
-            <div class="title-divider fade-in"></div>
+            <span class="section-label fade-in">CONTACTO</span>
+            <h2 class="section-title fade-in"><span class="serif">Hablemos</span></h2>
             <div class="contacto-content fade-in">
                 <p class="contacto-intro">
                     ¿Interesado en mi obra o en colaborar? No dudes en escribirme.
                 </p>
                 <div class="contacto-grid">
                     <div class="contacto-item">
-                        <span class="contacto-label">Email</span>
+                        <span class="contacto-label">EMAIL</span>
                         <a href="mailto:diegoperibanez@gmail.com" class="contacto-link">diegoperibanez@gmail.com</a>
                     </div>
                     <div class="contacto-item">
-                        <span class="contacto-label">Estudio</span>
+                        <span class="contacto-label">ESTUDIO</span>
                         <span class="contacto-value">Valencia, España</span>
                     </div>
                 </div>

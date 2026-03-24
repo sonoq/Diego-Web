@@ -1,42 +1,38 @@
 # Design System — Diego Peribañez Villalba
+# Architectural Minimalism
 
 ## Paleta de Colores
 
-| Token           | Hex       | Uso                              |
-|-----------------|-----------|----------------------------------|
-| Primary         | `#1A1A2E` | Fondo principal, navy profundo   |
-| Secondary       | `#E2C275` | Oro cálido, acentos principales  |
-| Accent          | `#C4A35A` | Oro opaco, hover/estados activos |
-| Background      | `#0F0F1A` | Fondo más oscuro (body)          |
-| Surface         | `#1E1E30` | Tarjetas, secciones alternas     |
-| Text Primary    | `#F5F0E8` | Texto principal (blanco cálido)  |
-| Text Secondary  | `#A0997D` | Subtítulos, texto secundario     |
-| Divider         | `#2A2A40` | Líneas divisorias                |
+| Token                     | Hex       | Uso                              |
+|---------------------------|-----------|----------------------------------|
+| Primary                   | `#000000` | Texto principal, CTAs            |
+| Primary Container         | `#1C1B1B` | Gradientes hero, hover           |
+| Secondary                 | `#6D5A51` | Acentos cálidos, elementos sutil |
+| Background / Surface      | `#FCF9F8` | Fondo base (papel cálido)        |
+| Surface Container Low     | `#F6F3F2` | Secciones alternas               |
+| Surface Container Lowest  | `#FFFFFF` | Tarjetas elevadas                |
+| Surface Container High    | `#EBE7E7` | Hover state                      |
+| On Primary                | `#FFFFFF` | Texto sobre negro                |
+| On Surface                | `#000000` | Texto principal                  |
+| On Surface Variant        | `#49454F` | Texto secundario, labels         |
+| Outline                   | `#79747E` | Bordes inputs                    |
+| Outline Variant            | `#C4C7C7` | Ghost borders (20% opacidad)     |
 
 ## Tipografía
 
-| Elemento   | Fuente            | Peso | Tamaño   |
-|------------|-------------------|------|----------|
-| H1 Hero    | Playfair Display  | 700  | 4rem     |
-| H2 Sección | Playfair Display  | 600  | 2.5rem   |
-| H3 Sub     | Playfair Display  | 500  | 1.5rem   |
-| Body       | Inter             | 400  | 1rem     |
-| Caption    | Inter             | 300  | 0.875rem |
-
-## Espaciado
-
-- Secciones: `80px` padding vertical
-- Contenido máximo: `1200px`
-- Gap de grid galería: `20px`
-- Border radius: `4px`
+| Elemento     | Fuente | Peso | Tracking  |
+|--------------|--------|------|-----------|
+| Display/Hero | Inter  | 900  | -4%       |
+| H2 Sección   | Inter  | 800  | -3%       |
+| Body         | Inter  | 400  | Normal    |
+| Label        | Inter  | 500  | +10% caps |
 
 ## Reglas de Estilo
 
-1. **Estética oscura tipo galería** — el arte es protagonista, el diseño no compite
-2. **Acentos dorados** en enlaces, bordes, hover y elementos interactivos
-3. **Hero a pantalla completa** con overlay oscuro semi-transparente
-4. **Espacio generoso** — mucho whitespace, sin desorden visual
-5. **Animaciones sutiles** — fade-in on scroll, transiciones suaves en hover
-6. **Mobile-first** — responsive en todo momento
-7. **Imágenes cuadradas** en galería con efecto hover (scale + overlay dorado)
-8. **Sin sombras agresivas** — usar bordes sutiles dorados si necesario
+1. **0px border-radius** — Todo esquina recta, estética arquitectónica
+2. **Fondo cálido** — Off-white (#FCF9F8), nunca blanco frío
+3. **Sin bordes 1px** — Separación mediante cambios tonales de superficie
+4. **Sombras ambient** — `0px 24px 48px rgba(28, 27, 27, 0.06)`
+5. **Tipografía como héroe** — Headlines masivos, tracking comprimido
+6. **Espacio generoso** — Macro-margin de 7-8.5rem entre secciones
+7. **Mobile-first** — Responsive en todo momento
